@@ -5,7 +5,7 @@ class HomeScreenHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 375,
       height: 44,
       child: Stack(
@@ -13,7 +13,7 @@ class HomeScreenHeader extends StatelessWidget {
           Positioned(
             left: 336.33,
             top: 17.33,
-            child: Container(
+            child: SizedBox(
               width: 24.33,
               height: 11.33,
               child: Stack(
@@ -90,7 +90,7 @@ class HomeScreenTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: 149,
       height: 67.78,
       child: Stack(
@@ -113,7 +113,7 @@ class HomeScreenTitle extends StatelessWidget {
           Positioned(
             left: 110,
             top: 20.95,
-            child: Container(
+            child: SizedBox(
               width: 39.01,
               height: 39.01,
               child: Stack(
@@ -201,6 +201,8 @@ class SignUpButton extends StatelessWidget {
 }
 
 class LogInButton extends StatelessWidget {
+  const LogInButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
