@@ -1,51 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:simple_gradient_text/simple_gradient_text.dart'; // Import GradientText
-import 'package:gradient_borders/gradient_borders.dart'; // Import GradientBorders
-import 'package:fbla_mobile_app/themes/app_theme.dart'; // Import your theme file
+import 'package:simple_gradient_text/simple_gradient_text.dart';
+import 'package:gradient_borders/gradient_borders.dart';
+import 'package:fbla_mobile_app/themes/app_theme.dart';
 
 class GradientButton extends StatelessWidget {
-  final String text;  // The text to display on the button
+  final String text;
+  final VoidCallback onPressed;
 
-  GradientButton({required this.text});
+  const GradientButton({
+    required this.text,
+    required this.onPressed,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 225,
-      height: 50,
-      decoration: BoxDecoration(
-        gradient: AppTheme.secondaryGradient, // Background uses secondaryGradient
+    double screenWidth = MediaQuery.of(context).size.width;
+
+    // Dynamically adjust button width based on screen size
+    double buttonWidth = screenWidth * 0.5; // 50% of screen width
+    buttonWidth = buttonWidth.clamp(180.0, 300.0); // Set min/max width
+
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onPressed,
         borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey,
-            blurRadius: 5,
-            offset: Offset(2, 2),
-          ),
-        ],
-        border: GradientBoxBorder(
-          gradient: LinearGradient(
-            colors: [
-              Color.fromRGBO(127, 219, 255, 1),  // Light Blue
-              Color.fromRGBO(66, 126, 235, 1),   // Blue
-              Color.fromRGBO(78, 74, 242, 1),    // Purple
+        child: Container(
+          width: buttonWidth,
+          height: 50, // Keep height fixed for consistency
+          decoration: BoxDecoration(
+            gradient: AppTheme.secondaryGradient,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withAlpha(128),
+                blurRadius: 5,
+                offset: const Offset(2, 2),
+              ),
             ],
+            border: GradientBoxBorder(
+              gradient: AppTheme.primaryGradient,
+              width: 3,
+            ),
           ),
-          width: 3,  // Border width
-        ),
-      ),
-      child: Center(
-        child: GradientText(
-          text,
-          style: TextStyle(
-            fontSize: 15.0, // Adjust font size as necessary
-            fontWeight: FontWeight.bold,
+          child: Center(
+            child: GradientText(
+              text,
+              style: const TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+              ),
+              colors: [
+                Color.fromRGBO(127, 219, 255, 1),
+                Color.fromRGBO(66, 126, 235, 1),
+                Color.fromRGBO(78, 74, 242, 1),
+              ],
+            ),
           ),
-          colors: [
-            Color.fromRGBO(127, 219, 255, 1),  // Light Blue
-            Color.fromRGBO(66, 126, 235, 1),   // Blue
-            Color.fromRGBO(78, 74, 242, 1),    // Purple
-          ],
         ),
       ),
     );

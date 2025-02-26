@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Add your theme data here
       ),
-      initialRoute: AppRoutes.authScreen,
+      initialRoute: AppRoutes.signInScreen,
       routes: AppRoutes.routes,
     );
   }
