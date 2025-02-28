@@ -61,7 +61,6 @@ class SignInScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              // Navigate to the Sign Up screen (replace with actual navigation)
                               print("Navigating to Sign Up screen...");
                               Navigator.pushNamed(context, AppRoutes.signUpScreen);
                             },
@@ -77,32 +76,36 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20), // Increased gap between "Don't have an account?" and "Sign In with Google"
-                      // Solid line and Sign In with Google Text
+                      const SizedBox(height: 20), // Increased gap between "Don't have an account?" and sign-in buttons
+                      // Solid line separator
                       Container(
                         height: 1,
-                        color: Colors.white70, // White color for the line
+                        color: Colors.white70,
                       ),
-                      const SizedBox(height: 8),
-                      const Text(
-                        'Sign In With Google',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      // Google Sign-In Button (Assuming you have an SVG for the button)
-                      InkWell(
-                        onTap: () {
-                          // Add Google Sign-In logic here
-                          print("Google Sign-In clicked...");
-                        },
-                        child: SvgPicture.asset(
-                          'lib/assets/google_dark_bttn.svg', // Path to your downloaded SVG
-                          height: 48, // Adjust the size as needed
-                        ),
+                      const SizedBox(height: 20),
+                      // Sign-in options (Google & Apple) - Stacked vertically with 20px gap
+                      Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              print("Google Sign-In clicked...");
+                            },
+                            child: SvgPicture.asset(
+                              'lib/assets/google_sign_in.svg', // Path to Google sign-in button
+                              height: 48, // Adjust as needed
+                            ),
+                          ),
+                          const SizedBox(height: 5), // Even spacing of 20px
+                          InkWell(
+                            onTap: () {
+                              print("Apple Sign-In clicked...");
+                            },
+                            child: SvgPicture.asset(
+                              'lib/assets/apple_sign_in.svg', // Path to Apple sign-in button
+                              height: 48, // Adjust as needed
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:fbla_mobile_app/routes/app_routes.dart';
+import 'package:flutter_svg/flutter_svg.dart'; // Import for SVG support
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -47,9 +48,12 @@ class SignUpScreen extends StatelessWidget {
                       const SizedBox(height: 24),
                       GradientButton(
                         text: 'Sign Up',
-                        onPressed: () {},
+                        onPressed: () {
+                          print("Sign Up button clicked...");
+                        },
                       ),
                       const SizedBox(height: 20),
+                      // "Already have an account?" text
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -59,6 +63,7 @@ class SignUpScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
+                              print("Navigating to Sign In screen...");
                               Navigator.pushNamed(context, AppRoutes.signInScreen);
                             },
                             child: GradientText(
@@ -69,6 +74,37 @@ class SignUpScreen extends StatelessWidget {
                                 Color.fromRGBO(66, 126, 235, 1),
                                 Color.fromRGBO(78, 74, 242, 1),
                               ],
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      // Solid separator line
+                      Container(
+                        height: 1,
+                        color: Colors.white70,
+                      ),
+                      const SizedBox(height: 20),
+                      // Sign-Up options (Google & Apple) - Stacked vertically with 5px gap
+                      Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              print("Google Sign-Up clicked...");
+                            },
+                            child: SvgPicture.asset(
+                              'lib/assets/google_sign_up.svg', // Path to Google sign-up button
+                              height: 48, // Adjust as needed
+                            ),
+                          ),
+                          const SizedBox(height: 8), // 5px spacing
+                          InkWell(
+                            onTap: () {
+                              print("Apple Sign-Up clicked...");
+                            },
+                            child: SvgPicture.asset(
+                              'lib/assets/apple_sign_up.svg', // Path to Apple sign-up button
+                              height: 48, // Adjust as needed
                             ),
                           ),
                         ],
