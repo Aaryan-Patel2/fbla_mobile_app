@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../features/auth/sign_in.dart';
-import '../features/auth/sign_up.dart';
+import '../views/sign_in.dart';
+import '../views/sign_up.dart';
 
 class AppRoutes {
   static const String signInScreen = '/sign-in';
