@@ -29,55 +29,55 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // Black Buttons (Now Responsive)
             Positioned(
-              top: screenHeight * 0.2, // Adjust based on percentage of screen height
-              left: screenWidth * 0.25, // Adjust based on percentage of screen width
+              top: screenHeight * 0.1, // Adjust based on percentage of screen height
+              left: screenWidth * 0.4, // Adjust based on percentage of screen width
               width: screenWidth * 0.15, // Adjust width relative to screen
               height: screenHeight * 0.12, // Adjust height relative to screen
               child: GestureDetector(
                 onTap: () => print("Orbit logo clicked"),
                 child: Container(
-                  color: const Color.fromARGB(255, 226, 10, 10), // Placeholder for visibility
+                  color: Colors.transparent, // Placeholder for visibility
                 ),
               ),
             ),
             Positioned(
-              top: screenHeight * 0.43,
-              left: screenWidth * 0.08,
+              top: screenHeight * 0.37,
+              left: screenWidth * 0.15,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
                 onTap: () => print("AI - Orbit clicked"),
-                child: Container(color: const Color.fromARGB(244, 243, 15, 15)),
+                child: Container(color: Colors.transparent),
               ),
             ),
             Positioned(
-              top: screenHeight * 0.43,
-              left: screenWidth * 0.30,
+              top: screenHeight * 0.35,
+              left: screenWidth * 0.63,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
                 onTap: () => print("Quiz clicked"),
-                child: Container(color: const Color.fromARGB(243, 230, 14, 14)),
+                child: Container(color: Colors.transparent),
               ),
             ),
             Positioned(
-              top: screenHeight * 0.65,
-              left: screenWidth * 0.08,
+              top: screenHeight * 0.60,
+              left: screenWidth * 0.15,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
                 onTap: () => print("Settings clicked"),
-                child: Container(color: const Color.fromARGB(232, 243, 14, 14)),
+                child: Container(color: Colors.transparent),
               ),
             ),
             Positioned(
-              top: screenHeight * 0.65,
-              left: screenWidth * 0.30,
+              top: screenHeight * 0.58,
+              left: screenWidth * 0.60,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
                 onTap: () => print("Best Efforts clicked"),
-                child: Container(color: const Color.fromARGB(237, 236, 11, 11)),
+                child: Container(color: Colors.transparent),
               ),
             ),
           ],

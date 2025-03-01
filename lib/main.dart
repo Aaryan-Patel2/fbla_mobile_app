@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Add your theme data here
       ),
-      initialRoute: AppRoutes.prScreen,
+      initialRoute: AppRoutes.homeScreen,
       routes: AppRoutes.routes,
     );
   }
