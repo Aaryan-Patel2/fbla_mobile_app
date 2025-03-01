@@ -1,23 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 
-
-class BattleshipGame extends StatelessWidget {
+class BattleshipGameScreen extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: GameScreen(),
-    );
-  }
+  _BattleshipGameScreenState createState() => _BattleshipGameScreenState();
 }
 
-class GameScreen extends StatefulWidget {
-  @override
-  _GameScreenState createState() => _GameScreenState();
-}
-
-class _GameScreenState extends State<GameScreen> {
+class _BattleshipGameScreenState extends State<BattleshipGameScreen> {
   final List<List<String>> _grid = List.generate(5, (_) => List.filled(5, "X"));
   final Random _random = Random();
   late int _shipX, _shipY;
@@ -45,7 +34,7 @@ class _GameScreenState extends State<GameScreen> {
   void _checkAnswer() {
     int? xAnswer = int.tryParse(_answerController.text.split(',')[0].trim());
     int? yAnswer = int.tryParse(_answerController.text.split(',')[1].trim());
-   
+
     if (xAnswer == null || yAnswer == null) {
       setState(() => _message = "Invalid Input. Use format: x, y");
       return;

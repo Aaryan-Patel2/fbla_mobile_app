@@ -4,24 +4,42 @@ import 'package:simple_gradient_text/simple_gradient_text.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:fbla_mobile_app/routes/app_routes.dart';
 
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
+
+  @override
+  _SignInScreenState createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _handleLogin() {
+    if (_emailController.text == "orbit.test@gmail.com" &&
+        _passwordController.text == "test123") {
+      Navigator.pushNamed(context, AppRoutes.homeScreen);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Invalid email or password")),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        bool isWide = constraints.maxWidth > 600; // Adapt based on screen width
+        bool isWide = constraints.maxWidth > 600;
 
         return Scaffold(
           backgroundColor: const Color.fromRGBO(16, 20, 28, 1),
           body: Stack(
             children: [
-              // Container for the rest of the UI elements
               Center(
                 child: Container(
                   padding: EdgeInsets.all(isWide ? 32.0 : 16.0),
-                  width: isWide ? 400 : double.infinity, // Restrict width on wider screens
+                  width: isWide ? 400 : double.infinity,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -40,18 +58,15 @@ class SignInScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 24),
-                      _buildTextField('Email'),
+                      _buildTextField('Email', controller: _emailController),
                       const SizedBox(height: 16),
-                      _buildTextField('Password', obscureText: true),
-                      const SizedBox(height: 20), // Increased gap between Login button and "Don't have an account?"
+                      _buildTextField('Password', controller: _passwordController, obscureText: true),
+                      const SizedBox(height: 20),
                       GradientButton(
                         text: 'Login',
-                        onPressed: () {
-                          print("Login button clicked...");
-                        },
+                        onPressed: _handleLogin,
                       ),
-                      const SizedBox(height: 20), // Increased gap between Login button and the "Don't have an account?" section
-                      // Always visible, adjusts dynamically with screen size
+                      const SizedBox(height: 20),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -61,7 +76,6 @@ class SignInScreen extends StatelessWidget {
                           ),
                           InkWell(
                             onTap: () {
-                              print("Navigating to Sign Up screen...");
                               Navigator.pushNamed(context, AppRoutes.signUpScreen);
                             },
                             child: GradientText(
@@ -76,33 +90,24 @@ class SignInScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const SizedBox(height: 20), // Increased gap between "Don't have an account?" and sign-in buttons
-                      // Solid line separator
-                      Container(
-                        height: 1,
-                        color: Colors.white70,
-                      ),
                       const SizedBox(height: 20),
-                      // Sign-in options (Google & Apple) - Stacked vertically with 20px gap
+                      Container(height: 1, color: Colors.white70),
+                      const SizedBox(height: 20),
                       Column(
                         children: [
                           InkWell(
-                            onTap: () {
-                              print("Google Sign-In clicked...");
-                            },
+                            onTap: () {},
                             child: SvgPicture.asset(
-                              'lib/assets/google_sign_in.svg', // Path to Google sign-in button
-                              height: 48, // Adjust as needed
+                              'lib/assets/google_sign_in.svg',
+                              height: 48,
                             ),
                           ),
-                          const SizedBox(height: 5), // Even spacing of 20px
+                          const SizedBox(height: 5),
                           InkWell(
-                            onTap: () {
-                              print("Apple Sign-In clicked...");
-                            },
+                            onTap: () {},
                             child: SvgPicture.asset(
-                              'lib/assets/apple_sign_in.svg', // Path to Apple sign-in button
-                              height: 48, // Adjust as needed
+                              'lib/assets/apple_sign_in.svg',
+                              height: 48,
                             ),
                           ),
                         ],
@@ -111,13 +116,12 @@ class SignInScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              // App logo positioned at the top left corner (Now using PNG instead of SVG)
               Positioned(
                 top: 16,
                 left: 16,
                 child: Image.asset(
-                  'lib/assets/named_branding.png', // Updated to use the PNG version
-                  height: 40, // Adjust the size as needed
+                  'lib/assets/named_branding.png',
+                  height: 40,
                 ),
               ),
             ],
@@ -127,8 +131,9 @@ class SignInScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(String hint, {bool obscureText = false}) {
+  Widget _buildTextField(String hint, {bool obscureText = false, TextEditingController? controller}) {
     return TextField(
+      controller: controller,
       obscureText: obscureText,
       style: const TextStyle(color: Colors.white),
       decoration: InputDecoration(
