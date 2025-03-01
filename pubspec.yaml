@@ -21,6 +21,7 @@ dependencies:
   sign_in_with_apple: ^6.1.4
   flutter_dotenv: ^5.2.1
   url_launcher: ^6.3.1
+  chat_bubbles: ^1.7.0
 
 dev_dependencies:
   flutter_test:
