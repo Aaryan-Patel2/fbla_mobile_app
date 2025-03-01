@@ -173,7 +173,7 @@ class _QuizScreenState extends State<QuizScreen> {
             bottom: 20,
             left: 20,
             child: GestureDetector(
-              onTap: () => Navigator.pushReplacementNamed(context, '/'),
+              onTap: () => Navigator.pushReplacementNamed(context, '/home'),
               child: Image.asset(
                 'lib/assets/home_button.png',
                 width: 50,  // Adjust size if needed
