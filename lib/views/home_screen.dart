@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/routes/app_routes.dart';
+import '../globals.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -30,12 +31,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // Orbit Logo Click (Currently doesn't navigate anywhere)
             Positioned(
-              top: screenHeight * 0.15, 
-              left: screenWidth * 0.4, 
-              width: screenWidth * 0.15, 
-              height: screenHeight * 0.12, 
+              top: screenHeight * 0.15,
+              left: screenWidth * 0.4,
+              width: screenWidth * 0.15,
+              height: screenHeight * 0.12,
               child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.gameSelectionScreen), // No navigation yet
+                onTap: () => Navigator.pushNamed(context,
+                    AppRoutes.gameSelectionScreen), // No navigation yet
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -57,7 +59,14 @@ class _HomeScreenState extends State<HomeScreen> {
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.quizScreen),
+                onTap: () {
+                  // First action: Set the global variable 'game' to 0
+                  game = 0;
+
+                  // Second action: Navigate to the subjectSelectionScreen
+                  Navigator.pushNamed(
+                      context, AppRoutes.subjectSelectionScreen);
+                },
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -68,7 +77,8 @@ class _HomeScreenState extends State<HomeScreen> {
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
-                onTap: () => Navigator.pushNamed(context, AppRoutes.settingsScreen),
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.settingsScreen),
                 child: Container(color: Colors.transparent),
               ),
             ),

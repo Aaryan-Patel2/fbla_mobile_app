@@ -23,11 +23,14 @@ class SubjectSelectionScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),
-                // Math button with a working redirect
-                _buildSubjectButton(context, "Math", [Colors.blue, Colors.purple], AppRoutes.mathLevelsScreen),
-                // Placeholder buttons for Science and History (No redirect functionality yet)
-                _buildSubjectButton(context, "Science", [Colors.green, Colors.teal], '/science_levels'),
-                _buildSubjectButton(context, "History", [Colors.brown, Colors.orange], '/history_levels'),
+                // Math button with working redirect
+                _buildSubjectButton(context, "Math",
+                    [Colors.blue, Colors.purple], AppRoutes.mathLevelsScreen),
+                // Placeholder buttons for Science and History
+                _buildSubjectButton(context, "Science",
+                    [Colors.green, Colors.teal], '/science_levels'),
+                _buildSubjectButton(context, "History",
+                    [Colors.brown, Colors.orange], '/history_levels'),
               ],
             ),
           ),
@@ -37,7 +40,8 @@ class SubjectSelectionScreen extends StatelessWidget {
             bottom: 20,
             left: 20,
             child: ReturnToHomeButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+              onPressed: () =>
+                  Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
             ),
           ),
         ],
@@ -51,9 +55,8 @@ class SubjectSelectionScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
         onTap: () {
-          // Only Math button should work, others are placeholders
           if (subject == "Math") {
-            Navigator.pushReplacementNamed(context, route);
+            Navigator.pushReplacementNamed(context, AppRoutes.mathLevelsScreen);
           }
         },
         child: Container(

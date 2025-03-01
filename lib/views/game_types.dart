@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 import 'package:fbla_mobile_app/routes/app_routes.dart';
+import '../globals.dart';
 
 class GameSelections extends StatefulWidget {
   const GameSelections({super.key});
@@ -10,30 +11,6 @@ class GameSelections extends StatefulWidget {
 }
 
 class _GameSelectionsState extends State<GameSelections> {
-  // Method to navigate to the game mode screen based on the selected game type
-  void _navigateToGame(BuildContext context, String gameMode) {
-    String route;
-
-    // Set the route based on the selected game mode
-    switch (gameMode) {
-      case "battleship":
-        route = AppRoutes.battleshipScreen;
-        break;
-      case "time-trial":
-        route = AppRoutes.timeTrialScreen;
-        break;
-      case "quiz":
-        route = AppRoutes.quizScreen;
-        break;
-      default:
-        route = AppRoutes.homeScreen; // Default to home if no game mode matches
-        break;
-    }
-
-    // Navigate to the selected game mode screen
-    Navigator.pushReplacementNamed(context, route);
-  }
-
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -52,14 +29,21 @@ class _GameSelectionsState extends State<GameSelections> {
                 fit: BoxFit.cover,
               ),
             ),
-            // Positioned areas for each game mode option (Battleship, Time Trial, Quiz)
+            // Positioned areas for each game mode option
             Positioned(
               top: screenHeight * 0.2,
               left: screenWidth * 0.05,
               width: screenWidth * 0.4,
               height: screenHeight * 0.2,
               child: GestureDetector(
-                onTap: () => _navigateToGame(context, "time-trial"),
+                onTap: () {
+                  // First action: Set the global variable 'game' to 0
+                  game = 1;
+
+                  // Second action: Navigate to the subjectSelectionScreen
+                  Navigator.pushNamed(
+                      context, AppRoutes.subjectSelectionScreen);
+                },
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -69,7 +53,14 @@ class _GameSelectionsState extends State<GameSelections> {
               width: screenWidth * 0.4,
               height: screenHeight * 0.2,
               child: GestureDetector(
-                onTap: () => _navigateToGame(context, "quiz"),
+                onTap: () {
+                  // First action: Set the global variable 'game' to 0
+                  game = 0;
+
+                  // Second action: Navigate to the subjectSelectionScreen
+                  Navigator.pushNamed(
+                      context, AppRoutes.subjectSelectionScreen);
+                },
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -79,7 +70,14 @@ class _GameSelectionsState extends State<GameSelections> {
               width: screenWidth * 0.4,
               height: screenHeight * 0.2,
               child: GestureDetector(
-                onTap: () => _navigateToGame(context, "battleship"),
+                onTap: () {
+                  // First action: Set the global variable 'game' to 0
+                  game = 2;
+
+                  // Second action: Navigate to the subjectSelectionScreen
+                  Navigator.pushNamed(
+                      context, AppRoutes.subjectSelectionScreen);
+                },
                 child: Container(color: Colors.transparent),
               ),
             ),
@@ -88,8 +86,8 @@ class _GameSelectionsState extends State<GameSelections> {
               bottom: screenHeight * 0.05,
               left: screenWidth * 0.05,
               child: ReturnToHomeButton(
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+                onPressed: () => Navigator.pushReplacementNamed(
+                    context, AppRoutes.homeScreen),
               ),
             ),
           ],
