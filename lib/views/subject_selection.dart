@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart'; // Import the custom button
+import 'package:fbla_mobile_app/routes/app_routes.dart'; // Import app routes
 
 class SubjectSelectionScreen extends StatelessWidget {
   const SubjectSelectionScreen({super.key});
@@ -22,12 +23,11 @@ class SubjectSelectionScreen extends StatelessWidget {
                       fontWeight: FontWeight.bold),
                 ),
                 SizedBox(height: 20),
-                _buildSubjectButton(context, "Math",
-                    [Colors.blue, Colors.purple], '/math_levels'),
-                _buildSubjectButton(context, "Science",
-                    [Colors.green, Colors.teal], '/science_levels'),
-                _buildSubjectButton(context, "History",
-                    [Colors.brown, Colors.orange], '/history_levels'),
+                // Math button with a working redirect
+                _buildSubjectButton(context, "Math", [Colors.blue, Colors.purple], AppRoutes.mathLevelsScreen),
+                // Placeholder buttons for Science and History (No redirect functionality yet)
+                _buildSubjectButton(context, "Science", [Colors.green, Colors.teal], '/science_levels'),
+                _buildSubjectButton(context, "History", [Colors.brown, Colors.orange], '/history_levels'),
               ],
             ),
           ),
@@ -37,7 +37,7 @@ class SubjectSelectionScreen extends StatelessWidget {
             bottom: 20,
             left: 20,
             child: ReturnToHomeButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
+              onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
             ),
           ),
         ],
@@ -50,7 +50,12 @@ class SubjectSelectionScreen extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
-        onTap: () => Navigator.pushReplacementNamed(context, route),
+        onTap: () {
+          // Only Math button should work, others are placeholders
+          if (subject == "Math") {
+            Navigator.pushReplacementNamed(context, route);
+          }
+        },
         child: Container(
           width: 250,
           height: 60,

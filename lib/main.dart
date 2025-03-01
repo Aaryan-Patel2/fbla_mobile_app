@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Add your theme data here
       ),
-      initialRoute: AppRoutes.settingsScreen,
+      initialRoute: AppRoutes.gameSelectionScreen,
       routes: AppRoutes.routes,
     );
   }

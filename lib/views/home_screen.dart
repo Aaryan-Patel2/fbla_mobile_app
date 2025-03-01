@@ -22,62 +22,64 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(
               width: screenWidth, // Make image responsive
-              height: screenHeight * 1, // Adjust height proportionally
+              height: screenHeight, // Adjust height proportionally
               child: Image.asset(
                 'lib/assets/home_screen.png',
                 fit: BoxFit.contain,
               ),
             ),
-            // Black Buttons (Now Responsive)
+            // Orbit Logo Click (Currently doesn't navigate anywhere)
             Positioned(
-              top: screenHeight * 0.15, // Adjust based on percentage of screen height
-              left: screenWidth * 0.4, // Adjust based on percentage of screen width
-              width: screenWidth * 0.15, // Adjust width relative to screen
-              height: screenHeight * 0.12, // Adjust height relative to screen
+              top: screenHeight * 0.15, 
+              left: screenWidth * 0.4, 
+              width: screenWidth * 0.15, 
+              height: screenHeight * 0.12, 
               child: GestureDetector(
-                onTap: () => print("Orbit logo clicked"),
-                child: Container(
-                  color: Colors.transparent, // Placeholder for visibility
-                ),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.gameSelectionScreen), // No navigation yet
+                child: Container(color: Colors.transparent),
               ),
             ),
+            // AI - Orbit
             Positioned(
               top: screenHeight * 0.50,
               left: screenWidth * 0.15,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
-                onTap: () => print("AI - Orbit clicked"),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.chatScreen),
                 child: Container(color: Colors.transparent),
               ),
             ),
+            // Quiz
             Positioned(
               top: screenHeight * 0.45,
               left: screenWidth * 0.63,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
-                onTap: () => print("Quiz clicked"),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.quizScreen),
                 child: Container(color: Colors.transparent),
               ),
             ),
+            // Settings
             Positioned(
               top: screenHeight * 0.75,
               left: screenWidth * 0.15,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
-                onTap: () => print("Settings clicked"),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.settingsScreen),
                 child: Container(color: Colors.transparent),
               ),
             ),
+            // Best Efforts (Personal Record)
             Positioned(
               top: screenHeight * 0.70,
               left: screenWidth * 0.60,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
               child: GestureDetector(
-                onTap: () => print("Best Efforts clicked"),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.prScreen),
                 child: Container(color: Colors.transparent),
               ),
             ),

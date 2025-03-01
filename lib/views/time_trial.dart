@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/routes/app_routes.dart';
+import 'package:fbla_mobile_app/widgets/buttons.dart';
+import '../views/home_screen.dart';
 
 void main() {
   runApp(MathChallengeApp());
@@ -17,6 +19,7 @@ class MathChallengeApp extends StatelessWidget {
       routes: {
         '/': (context) => ChallengeHomeScreen(),
         '/quiz': (context) => ChallengeScreen(),
+        AppRoutes.homeScreen: (context) => HomeScreen(),
       },
     );
   }
@@ -30,9 +33,27 @@ class ChallengeHomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.black,
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => Navigator.pushReplacementNamed(context, '/quiz'),
-          child: Text("Go to Challenge"),
+        child: Stack(
+          children: [
+            // Go to Challenge Button
+            Center(
+              child: ElevatedButton(
+                onPressed: () => Navigator.pushReplacementNamed(context, '/quiz'),
+                child: Text("Go to Challenge"),
+              ),
+            ),
+
+            // Return to Home Button (Centered at the bottom of the screen)
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: ReturnToHomeButton(
+                  onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -101,24 +122,24 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
     });
   }
 
-void _showResults() {
-  showDialog(
-    context: context,
-    barrierDismissible: false,
-    builder: (context) => AlertDialog(
-      title: Text("Time's Up!"),
-      content: Text("You got $_correctAnswers correct answers!"),
-      actions: [
-        TextButton(
-          onPressed: () {
-            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen); // Redirect to home screen
-          },
-          child: Text("Go Home"),
-        ),
-      ],
-    ),
-  );
-}
+  void _showResults() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => AlertDialog(
+        title: Text("Time's Up!"),
+        content: Text("You got $_correctAnswers correct answers!"),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pushReplacementNamed(context, AppRoutes.homeScreen); // Redirect to home screen
+            },
+            child: Text("Go Home"),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,8 +165,7 @@ void _showResults() {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient:
-                        LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -164,8 +184,7 @@ void _showResults() {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient:
-                        LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   child: TextField(
                     controller: _controller,
@@ -215,6 +234,17 @@ void _showResults() {
                   child: Text("Next Question"),
                 ),
               ],
+            ),
+          ),
+
+          // Return to Home Button at the bottom-center of the screen
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: ReturnToHomeButton(
+                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+              ),
             ),
           ),
         ],
