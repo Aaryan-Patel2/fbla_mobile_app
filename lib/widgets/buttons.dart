@@ -63,3 +63,28 @@ class GradientButton extends StatelessWidget {
     );
   }
 }
+
+class ReturnToHomeButton extends StatelessWidget {
+  final VoidCallback onPressed;
+
+  const ReturnToHomeButton({
+    required this.onPressed,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+      bottom: 20,
+      left: 20,
+      child: GestureDetector(
+        onTap: onPressed,
+        child: Image.asset(
+          'lib/assets/home_button.png',
+          width: 50,  // Adjust size if needed
+          height: 50, // Adjust size if needed
+        ),
+      ),
+    );
+  }
+}

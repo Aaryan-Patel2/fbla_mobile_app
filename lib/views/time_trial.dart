@@ -1,25 +1,30 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fbla_mobile_app/widgets/buttons.dart';  // Import the buttons.dart file
+import 'package:fbla_mobile_app/routes/app_routes.dart';
 
 void main() {
-  runApp(CalculusQuizApp());
+  runApp(MathChallengeApp());
 }
 
-class CalculusQuizApp extends StatelessWidget {
+class MathChallengeApp extends StatelessWidget {
+  const MathChallengeApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
       routes: {
-        '/': (context) => QuizHomeScreen(), // Updated class name
-        '/quiz': (context) => QuizScreen(),
+        '/': (context) => ChallengeHomeScreen(),
+        '/quiz': (context) => ChallengeScreen(),
       },
     );
   }
 }
 
-class QuizHomeScreen extends StatelessWidget { // Updated class name
+class ChallengeHomeScreen extends StatelessWidget {
+  const ChallengeHomeScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,22 +32,27 @@ class QuizHomeScreen extends StatelessWidget { // Updated class name
       body: Center(
         child: ElevatedButton(
           onPressed: () => Navigator.pushReplacementNamed(context, '/quiz'),
-          child: Text("Go to Quiz"),
+          child: Text("Go to Challenge"),
         ),
       ),
     );
   }
 }
 
-class QuizScreen extends StatefulWidget {
+class ChallengeScreen extends StatefulWidget {
+  const ChallengeScreen({super.key});
+
   @override
-  _QuizScreenState createState() => _QuizScreenState();
+  _ChallengeScreenState createState() => _ChallengeScreenState();
 }
 
-class _QuizScreenState extends State<QuizScreen> {
+class _ChallengeScreenState extends State<ChallengeScreen> {
   final TextEditingController _controller = TextEditingController();
   int _questionIndex = 0;
   String _feedback = "";
+  int _correctAnswers = 0;
+  int _secondsRemaining = 60;
+  Timer? _timer;
 
   final List<Map<String, dynamic>> _questions = [
     {"question": "What is the derivative of x²?", "answer": "2x"},
@@ -50,15 +60,35 @@ class _QuizScreenState extends State<QuizScreen> {
     {"question": "What is the derivative of sin(x)?", "answer": "cos(x)"},
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        setState(() {
+          _secondsRemaining--;
+        });
+      } else {
+        _timer?.cancel();
+        _showResults();
+      }
+    });
+  }
+
   void _checkAnswer() {
     String userAnswer = _controller.text.trim();
     if (userAnswer == _questions[_questionIndex]["answer"]) {
       setState(() {
-        _feedback = "Correct! ✅";
+        _feedback = "Correct!";
+        _correctAnswers++;
       });
     } else {
       setState(() {
-        _feedback = "Wrong! ❌ Try again.";
+        _feedback = "Wrong! Try again.";
       });
     }
   }
@@ -70,6 +100,25 @@ class _QuizScreenState extends State<QuizScreen> {
       _controller.clear();
     });
   }
+
+void _showResults() {
+  showDialog(
+    context: context,
+    barrierDismissible: false,
+    builder: (context) => AlertDialog(
+      title: Text("Time's Up!"),
+      content: Text("You got $_correctAnswers correct answers!"),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.pushReplacementNamed(context, AppRoutes.homeScreen); // Redirect to home screen
+          },
+          child: Text("Go Home"),
+        ),
+      ],
+    ),
+  );
+}
 
   @override
   Widget build(BuildContext context) {
@@ -83,13 +132,10 @@ class _QuizScreenState extends State<QuizScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const SizedBox(height: 50),
-                // Title
-                Row(
-                  children: [
-                    Text("QUIZ ", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
-                    Icon(Icons.sports_esports, color: Colors.blueAccent),
-                  ],
-                ),
+
+                // Timer
+                Text("Time Remaining: $_secondsRemaining s",
+                    style: TextStyle(fontSize: 24, color: Colors.redAccent)),
                 const SizedBox(height: 20),
 
                 // Question Box
@@ -98,7 +144,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   alignment: Alignment.center,
                   child: Text(
@@ -117,7 +164,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   child: TextField(
                     controller: _controller,
@@ -143,7 +191,8 @@ class _QuizScreenState extends State<QuizScreen> {
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: Colors.blueAccent),
                     ),
-                    child: Text("Submit", style: TextStyle(color: Colors.white, fontSize: 18)),
+                    child: Text("Submit",
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
                 ),
 
@@ -168,17 +217,14 @@ class _QuizScreenState extends State<QuizScreen> {
               ],
             ),
           ),
-
-          // Home Button at Bottom Left
-          Positioned(
-            bottom: 20,
-            left: 20,
-            child: ReturnToHomeButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, '/home'),  // Use the correct route
-            ),
-          ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 }

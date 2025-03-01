@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'routes/app_routes.dart';
 
-void main() {
+void main() async {
+  // Ensure that flutter_dotenv is loaded before the app starts
+  // await dotenv.load(fileName: "lib/keys/.env");
+  
+  // Now, run the app
   runApp(const MyApp());
 }
 
@@ -15,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         // Add your theme data here
       ),
-      initialRoute: AppRoutes.battleshipScreen,
+      initialRoute: AppRoutes.prScreen,
       routes: AppRoutes.routes,
     );
   }
