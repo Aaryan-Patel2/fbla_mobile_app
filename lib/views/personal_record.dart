@@ -33,7 +33,7 @@ class _PersonalRecordScreenState extends State<PersonalRecordScreen> {
           children: [
             SizedBox(
               width: screenWidth,
-              height: screenHeight * 0.8,
+              height: screenHeight * 1,
               child: Image.asset(
                 'lib/assets/pr.png', // Updated image
                 fit: BoxFit.contain,
@@ -42,10 +42,10 @@ class _PersonalRecordScreenState extends State<PersonalRecordScreen> {
 
             // Instagram Button (Transparent Tap Area)
             Positioned(
-              bottom: screenHeight * 0.03, // Adjusted for better placement
-              left: screenWidth * 0.3, // Centered horizontally
-              width: screenWidth * 0.4,
-              height: screenHeight * 0.08,
+              bottom: screenHeight * 0.05, // Adjusted for better placement
+              left: screenWidth * 0.22, // Centered horizontally
+              width: screenWidth * 0.55,
+              height: screenHeight * 0.07,
               child: GestureDetector(
                 onTap: _launchInstagram, // Launch Instagram when tapped
                 child: Container(
@@ -56,7 +56,7 @@ class _PersonalRecordScreenState extends State<PersonalRecordScreen> {
 
             // Transparent Box near the top-left that redirects to Home Screen
             Positioned(
-              top: screenHeight * 0.05, // 0.1 * screenHeight from the top
+              top: screenHeight * 0.08, // 0.1 * screenHeight from the top
               left: screenWidth * 0.05, // Near the left side of the screen
               width: screenWidth * 0.8, // Adjust width as needed
               height: screenHeight * 0.05, // Adjust height as needed

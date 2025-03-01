@@ -8,6 +8,8 @@ import '../views/battleship.dart'; // Add the path for BattleshipGameScreen
 import '../views/time_trial.dart';
 import '../views/personal_record.dart';
 import '../views/subject_selection.dart';
+import '../views/game_types.dart';
+import '../views/settings.dart';
 
 class AppRoutes {
   static const String signInScreen = '/sign-in';
@@ -19,6 +21,8 @@ class AppRoutes {
   static const String mathLevelsScreen = '/math-levels';
   static const String prScreen = '/pr-screen';
   static const String subjectSelectionScreen = '/subject-selection';
+  static const String gameSelectionScreen = '/game-selections';
+  static const String settingsScreen = '/settings';
 
   static Map<String, WidgetBuilder> get routes {
     return {
@@ -31,6 +35,8 @@ class AppRoutes {
       mathLevelsScreen: (context) => MathLevelsScreen(),
       prScreen: (context) => PersonalRecordScreen(),
       subjectSelectionScreen: (context) => SubjectSelectionScreen(),
+      gameSelectionScreen: (context) => GameSelections(),
+      settingsScreen: (context) => UserSettings(),
     };
   }
 }

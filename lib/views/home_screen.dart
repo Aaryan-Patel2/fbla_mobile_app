@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             SizedBox(
               width: screenWidth, // Make image responsive
-              height: screenHeight * 0.8, // Adjust height proportionally
+              height: screenHeight * 1, // Adjust height proportionally
               child: Image.asset(
                 'lib/assets/home_screen.png',
                 fit: BoxFit.contain,
@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             // Black Buttons (Now Responsive)
             Positioned(
-              top: screenHeight * 0.1, // Adjust based on percentage of screen height
+              top: screenHeight * 0.15, // Adjust based on percentage of screen height
               left: screenWidth * 0.4, // Adjust based on percentage of screen width
               width: screenWidth * 0.15, // Adjust width relative to screen
               height: screenHeight * 0.12, // Adjust height relative to screen
@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: screenHeight * 0.37,
+              top: screenHeight * 0.50,
               left: screenWidth * 0.15,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
@@ -52,7 +52,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: screenHeight * 0.35,
+              top: screenHeight * 0.45,
               left: screenWidth * 0.63,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: screenHeight * 0.60,
+              top: screenHeight * 0.75,
               left: screenWidth * 0.15,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
             Positioned(
-              top: screenHeight * 0.58,
+              top: screenHeight * 0.70,
               left: screenWidth * 0.60,
               width: screenWidth * 0.18,
               height: screenHeight * 0.15,
