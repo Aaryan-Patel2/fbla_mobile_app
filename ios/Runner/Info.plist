@@ -46,4 +46,18 @@
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 </dict>
+<dict>
+  <!-- ... existing keys ... -->
+  <key>CFBundleURLTypes</key>
+  <array>
+    <dict>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <string>com.googleusercontent.apps.335054872141-21rnq367aqp6i6p8jckhe4itk8u5pt0u</string>
+      </array>
+    </dict>
+  </array>
+  <key>FirebaseAppDelegateProxyEnabled</key>
+  <false/>
+</dict>
 </plist>

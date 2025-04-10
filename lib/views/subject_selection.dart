@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart'; // Import the custom button
-import 'package:fbla_mobile_app/routes/app_routes.dart'; // Import app routes
+import 'package:fbla_mobile_app/core/routes/app_routes.dart'; // Import app routes
 
 class SubjectSelectionScreen extends StatelessWidget {
   const SubjectSelectionScreen({super.key});

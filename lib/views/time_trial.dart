@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:fbla_mobile_app/routes/app_routes.dart';
+import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 import '../views/home_screen.dart';
 

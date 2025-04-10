@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Import the url_launcher package
-import 'package:fbla_mobile_app/routes/app_routes.dart'; // Import AppRoutes
+import 'package:fbla_mobile_app/core/routes/app_routes.dart'; // Import AppRoutes
 
 class PersonalRecordScreen extends StatefulWidget {
   const PersonalRecordScreen({super.key});

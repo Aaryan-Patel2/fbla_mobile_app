@@ -1,8 +1,8 @@
 // import 'package:fbla_mobile_app/views/game_types.dart';
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
-import 'package:fbla_mobile_app/routes/app_routes.dart';
-import '../globals.dart'; // Import the global variables
+import 'package:fbla_mobile_app/core/routes/app_routes.dart';
+import '../core/constants/globals.dart'; // Import the global variables
 
 class MathLevelsScreen extends StatelessWidget {
   const MathLevelsScreen({super.key});

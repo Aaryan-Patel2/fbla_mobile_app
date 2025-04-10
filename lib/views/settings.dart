@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart'; // Import the custom button
-import 'package:fbla_mobile_app/routes/app_routes.dart'; // Import your app routes
+import 'package:fbla_mobile_app/core/routes/app_routes.dart'; // Import your app routes
 
 class UserSettings extends StatefulWidget {
   const UserSettings({super.key});

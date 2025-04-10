@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
-import 'package:fbla_mobile_app/routes/app_routes.dart';
+import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 import 'package:flutter_svg/flutter_svg.dart'; // Import for SVG support
 
 class SignUpScreen extends StatelessWidget {

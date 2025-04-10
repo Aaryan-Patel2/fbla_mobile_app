@@ -63,6 +63,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '335054872141',
     projectId: 'fbla-mobile-app-dev-d426f',
     storageBucket: 'fbla-mobile-app-dev-d426f.firebasestorage.app',
+    androidClientId: '335054872141-fbi78qdulp4giqhqp567t6uhm6c9jqji.apps.googleusercontent.com',
+    iosClientId: '335054872141-21rnq367aqp6i6p8jckhe4itk8u5pt0u.apps.googleusercontent.com',
     iosBundleId: 'com.example.fblaMobileApp',
   );
 

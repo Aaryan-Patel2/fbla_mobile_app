@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
-import 'package:fbla_mobile_app/routes/app_routes.dart';
-import '../globals.dart';
+import 'package:fbla_mobile_app/core/routes/app_routes.dart';
+import '../core/constants/globals.dart';
 
 class GameSelections extends StatefulWidget {
   const GameSelections({super.key});
