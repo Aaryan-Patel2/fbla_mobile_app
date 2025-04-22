@@ -1,54 +1,54 @@
 {
-  "project_info": {
-    "project_number": "335054872141",
-    "project_id": "fbla-mobile-app-dev-d426f",
-    "storage_bucket": "fbla-mobile-app-dev-d426f.firebasestorage.app"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:335054872141:android:bfb01bad56bf51f8654604",
-        "android_client_info": {
-          "package_name": "com.example.fbla_mobile_app"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "335054872141-fbi78qdulp4giqhqp567t6uhm6c9jqji.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.fbla_mobile_app",
-            "certificate_hash": "a1d06552dd9268dff3aa0cbd84deefd552ca76c5"
+    "project_info": {
+      "project_number": "335054872141",
+      "project_id": "fbla-mobile-app-dev-d426f",
+      "storage_bucket": "fbla-mobile-app-dev-d426f.firebasestorage.app"
+    },
+    "client": [
+      {
+        "client_info": {
+          "mobilesdk_app_id": "1:335054872141:android:bfb01bad56bf51f8654604",
+          "android_client_info": {
+            "package_name": "com.example.fbla_mobile_app"
           }
         },
-        {
-          "client_id": "335054872141-8ffltb29ophjirhbobh5u13d7rrdhli7.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDUjwM9UcrV35aWa5KXxFoQofCYtB9vr40"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "335054872141-8ffltb29ophjirhbobh5u13d7rrdhli7.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "335054872141-21rnq367aqp6i6p8jckhe4itk8u5pt0u.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.fblaMobileApp"
-              }
+        "oauth_client": [
+          {
+            "client_id": "335054872141-fbi78qdulp4giqhqp567t6uhm6c9jqji.apps.googleusercontent.com",
+            "client_type": 1,
+            "android_info": {
+              "package_name": "com.example.fbla_mobile_app",
+              "certificate_hash": "a1d06552dd9268dff3aa0cbd84deefd552ca76c5"
             }
-          ]
+          },
+          {
+            "client_id": "335054872141-8ffltb29ophjirhbobh5u13d7rrdhli7.apps.googleusercontent.com",
+            "client_type": 3
+          }
+        ],
+        "api_key": [
+          {
+            "current_key": "AIzaSyDUjwM9UcrV35aWa5KXxFoQofCYtB9vr40"
+          }
+        ],
+        "services": {
+          "appinvite_service": {
+            "other_platform_oauth_client": [
+              {
+                "client_id": "335054872141-8ffltb29ophjirhbobh5u13d7rrdhli7.apps.googleusercontent.com",
+                "client_type": 3
+              },
+              {
+                "client_id": "335054872141-21rnq367aqp6i6p8jckhe4itk8u5pt0u.apps.googleusercontent.com",
+                "client_type": 2,
+                "ios_info": {
+                  "bundle_id": "com.example.fblaMobileApp"
+                }
+              }
+            ]
+          }
         }
       }
-    }
-  ],
-  "configuration_version": "1"
-}
+    ],
+    "configuration_version": "1"
+  }
