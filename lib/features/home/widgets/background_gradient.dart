@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/asset_utils.dart';
 
 class BackgroundGradient extends StatelessWidget {
@@ -6,15 +7,11 @@ class BackgroundGradient extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: -118,
-      top: -71,
-      child: Image.asset(
-        AssetUtils.backgroundGradientAsset,
-        fit: BoxFit.cover,
-        width: 400, // Adjust as needed
-        height: 400,
-      ),
+    return SvgPicture.asset(
+      AssetUtils.backgroundGradientAsset,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      height: double.infinity,
     );
   }
 }
