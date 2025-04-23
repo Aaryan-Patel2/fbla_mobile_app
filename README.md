@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://github.com/Aaryan-Patel2/fbla_mobile_app/tree/main/assets/full_logo.png" alt="Orbit Icon" width=300>
+<img src="https://github.com/Aaryan-Patel2/fbla_mobile_app/blob/main/assets/full_logo.png" alt="Orbit Icon" width=300>
 </p>
 
 # Orbit
