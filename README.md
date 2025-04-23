@@ -19,9 +19,6 @@ Through a user-friendly GUI and a clean look, *Orbit* encourages students to act
 * **For iOS:** iOS Version 15.0 or later
 * **For Android:** Android 14 or later
 
-# Installation Guide
-Here is how to install *Orbit* on both Android and iOS
-* ***TBD: Refer to issues below***
   
 ## How To Use
 1. Sign in with your email or utilize social authentication (Google/Apple)
