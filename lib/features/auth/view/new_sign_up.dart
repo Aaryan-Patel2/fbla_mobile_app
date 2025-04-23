@@ -7,6 +7,7 @@ import 'package:fbla_mobile_app/features/auth/widgets/gradient_button.dart';
 import 'package:fbla_mobile_app/features/auth/widgets/auth_toggle_text.dart';
 import 'package:fbla_mobile_app/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:sign_in_button/sign_in_button.dart';
+import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -91,7 +92,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               AuthToggleText(
                 prefixText: "Already have an account? ",
                 actionText: 'Sign in',
-                onTap: () => Navigator.pushNamed(context, '/signin'),
+                onTap: () => Navigator.pushNamed(context, AppRoutes.testSignInScreen),
               ),
             ],
           ),

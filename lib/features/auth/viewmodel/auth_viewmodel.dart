@@ -8,9 +8,14 @@ part 'sign_in_state.dart';
 class AuthViewModel extends ChangeNotifier {
   final FirebaseAuth _auth;
   final GoogleSignIn _googleSignIn;
-  
+
   SignInState _state = SignInInitial();
   SignInState get state => _state;
+
+  // Error control variables
+  bool _isErrorState = false;
+  bool _isProcessing = false;
+  DateTime? _lastErrorTime;
 
   User? get currentUser => _auth.currentUser;
   bool get isLoggedIn => currentUser != null;
@@ -19,8 +24,8 @@ class AuthViewModel extends ChangeNotifier {
   AuthViewModel({
     FirebaseAuth? auth,
     GoogleSignIn? googleSignIn,
-  }) : _auth = auth ?? FirebaseAuth.instance,
-       _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
+  })  : _auth = auth ?? FirebaseAuth.instance,
+        _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
   // ------------------------
   // 1. Core Auth Operations
@@ -35,6 +40,7 @@ class AuthViewModel extends ChangeNotifier {
       _auth.signOut(),
       _googleSignIn.signOut(),
     ]);
+    _resetErrorState();
     _updateState(SignInInitial());
   }
 
@@ -42,9 +48,12 @@ class AuthViewModel extends ChangeNotifier {
   // 2. Email/Password Auth
   // ------------------------
   Future<void> signInWithEmail(String email, String password) async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
     try {
       _updateState(SignInLoading());
-      
+
       final userCredential = await _auth.signInWithEmailAndPassword(
         email: email.trim(),
         password: password,
@@ -56,6 +65,7 @@ class AuthViewModel extends ChangeNotifier {
         return;
       }
 
+      _resetErrorState();
       _updateState(SignInSuccess());
     } on FirebaseAuthException catch (e) {
       _handleAuthError(e);
@@ -63,16 +73,21 @@ class AuthViewModel extends ChangeNotifier {
         await Future.delayed(const Duration(seconds: 2));
       }
     } catch (e) {
-      _updateState(SignInError('Authentication failed'));
+      _handleGenericError('Authentication failed');
+    } finally {
+      _isProcessing = false;
     }
   }
 
   Future<void> signUpWithEmail(String email, String password) async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
     try {
       if (password.length < 8) {
         throw FirebaseAuthException(
-          code: 'weak-password', 
-          message: 'Password must be at least 8 characters'
+          code: 'weak-password',
+          message: 'Password must be at least 8 characters',
         );
       }
 
@@ -82,9 +97,14 @@ class AuthViewModel extends ChangeNotifier {
         password: password,
       );
       await _sendEmailVerification();
+      _resetErrorState();
       _updateState(SignInSuccess(isNewUser: true));
     } on FirebaseAuthException catch (e) {
       _handleAuthError(e);
+    } catch (e) {
+      _handleGenericError('Registration failed');
+    } finally {
+      _isProcessing = false;
     }
   }
 
@@ -98,8 +118,8 @@ class AuthViewModel extends ChangeNotifier {
       await _auth.sendPasswordResetEmail(email: email.trim());
     } on FirebaseAuthException catch (e) {
       throw FirebaseAuthException(
-        code: e.code, 
-        message: _getFriendlyAuthError(e)
+        code: e.code,
+        message: _getFriendlyAuthError(e),
       );
     }
   }
@@ -108,34 +128,37 @@ class AuthViewModel extends ChangeNotifier {
   // 3. Google Sign-In/Up
   // -----------------
   Future<void> signInWithGoogle() async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
     try {
-      // Clear any existing session
       if (await _googleSignIn.isSignedIn()) {
-        await _googleSignIn.disconnect(); // Fixed: Using disconnect() instead of signOutSilently()
+        await _googleSignIn.disconnect();
       }
 
       _updateState(SignInLoading());
-      
+
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) {
-        _updateState(SignInInitial()); // User cancelled
+        _updateState(SignInInitial());
         return;
       }
 
-      final GoogleSignInAuthentication googleAuth = 
-          await googleUser.authentication;
-      
-      final AuthCredential credential = GoogleAuthProvider.credential(
+      final googleAuth = await googleUser.authentication;
+      final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
 
       await _auth.signInWithCredential(credential);
+      _resetErrorState();
       _updateState(SignInSuccess());
     } on FirebaseAuthException catch (e) {
       _handleAuthError(e);
     } catch (e) {
-      _updateState(SignInError('Google sign-in failed: ${e.toString()}'));
+      _handleGenericError('Google sign-in failed');
+    } finally {
+      _isProcessing = false;
     }
   }
 
@@ -143,18 +166,14 @@ class AuthViewModel extends ChangeNotifier {
   // 4. Apple Sign-In/Up
   // ----------------
   Future<void> signInWithApple() async {
+    if (_isProcessing) return;
+    _isProcessing = true;
+
     try {
       _updateState(SignInLoading());
-      
+
       final appleCredential = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-        webAuthenticationOptions: WebAuthenticationOptions(
-          clientId: 'your.service.id',
-          redirectUri: Uri.parse('https://your-domain.com/callbacks/sign_in_with_apple'),
-        ),
+        scopes: [AppleIDAuthorizationScopes.email],
       );
 
       final oauthCredential = OAuthProvider("apple.com").credential(
@@ -162,21 +181,32 @@ class AuthViewModel extends ChangeNotifier {
         accessToken: appleCredential.authorizationCode,
       );
 
-      final userCredential = await _auth.signInWithCredential(oauthCredential);
+      final userCredential =
+          await _auth.signInWithCredential(oauthCredential);
 
-      // Handle name only on first sign-up (Apple only provides it once)
       if (appleCredential.givenName != null) {
-        final displayName = '${appleCredential.givenName} ${appleCredential.familyName ?? ''}'.trim();
+        final displayName =
+            '${appleCredential.givenName} ${appleCredential.familyName ?? ''}'
+                .trim();
         if (displayName.isNotEmpty) {
           await userCredential.user?.updateDisplayName(displayName);
         }
       }
 
+      _resetErrorState();
       _updateState(SignInSuccess());
+    } on SignInWithAppleAuthorizationException catch (e) {
+      if (e.code != AuthorizationErrorCode.canceled) {
+        _handleGenericError('Apple sign-in failed');
+      } else {
+        _updateState(SignInInitial());
+      }
     } on FirebaseAuthException catch (e) {
       _handleAuthError(e);
     } catch (e) {
-      _updateState(SignInError('Apple sign-in failed: ${e.toString()}'));
+      _handleGenericError('Apple sign-in failed');
+    } finally {
+      _isProcessing = false;
     }
   }
 
@@ -184,13 +214,42 @@ class AuthViewModel extends ChangeNotifier {
   // Helper Methods
   // ----------------------
   void _updateState(SignInState newState) {
-    if (_state == newState) return;
+    if (_state.runtimeType == newState.runtimeType &&
+        (_state is SignInError && newState is SignInError)) {
+      // Prevent repeating the same error state
+      return;
+    }
     _state = newState;
     notifyListeners();
   }
 
+  void _resetErrorState() {
+    _isErrorState = false;
+    _lastErrorTime = null;
+  }
+
   void _handleAuthError(FirebaseAuthException e) {
-    _updateState(SignInError(_getFriendlyAuthError(e)));
+    final now = DateTime.now();
+    if (!_isErrorState || _lastErrorTime == null || now.difference(_lastErrorTime!).inSeconds > 3) {
+      _isErrorState = true;
+      _lastErrorTime = now;
+      _updateState(SignInError(_getFriendlyAuthError(e)));
+      Future.delayed(const Duration(seconds: 5), () {
+        _isErrorState = false;
+      });
+    }
+  }
+
+  void _handleGenericError(String message) {
+    final now = DateTime.now();
+    if (!_isErrorState || _lastErrorTime == null || now.difference(_lastErrorTime!).inSeconds > 3) {
+      _isErrorState = true;
+      _lastErrorTime = now;
+      _updateState(SignInError(message));
+      Future.delayed(const Duration(seconds: 5), () {
+        _isErrorState = false;
+      });
+    }
   }
 
   String _getFriendlyAuthError(FirebaseAuthException e) {
@@ -214,7 +273,7 @@ class AuthViewModel extends ChangeNotifier {
       case 'network-request-failed':
         return 'Network error occurred';
       case 'requires-recent-login':
-        return 'Please sign in again to update your credentials';
+        return 'Please sign in again';
       case 'weak-password':
         return 'Password must be at least 8 characters';
       default:
