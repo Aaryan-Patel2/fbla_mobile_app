@@ -143,7 +143,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // ✅ Redirect to home screen on success
       if (mounted) {
-        Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+        Navigator.pushReplacementNamed(context, AppRoutes.testHomeScreen);
       }
     } catch (e) {
       _showErrorSnackbar(context, 'Sign up failed: ${e.toString()}');
@@ -173,7 +173,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       // ✅ Redirect to home screen on success
       if (mounted) {
-        Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+        Navigator.pushReplacementNamed(context, AppRoutes.testHomeScreen);
       }
     } catch (e) {
       _showErrorSnackbar(context, '$provider sign up failed: ${e.toString()}');
