@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            const BackgroundGradient(),
+            const BackgroundGradient(), // Updated to use SvgPicture
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -24,8 +24,9 @@ class HomeScreen extends StatelessWidget {
                       child: Text(
                         'Welcome ${viewModel.displayName ?? ''}',
                         style: const TextStyle(
-                          fontSize: 24,
+                          fontSize: 28,
                           fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 255, 255, 255), // Optional: depends on your background
                         ),
                       ),
                     );
