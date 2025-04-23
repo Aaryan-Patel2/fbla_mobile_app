@@ -46,3 +46,6 @@ app.*.map.json
 
 #Keys
 lib/keys/
+
+#Vscode
+.vscode/
