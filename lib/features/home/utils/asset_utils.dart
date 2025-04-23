@@ -1,3 +1,3 @@
 class AssetUtils {
-  static const String backgroundGradientAsset = 'assets/images/gradient_back.svg';
+  static const String backgroundGradientAsset = 'assets/gradient_back.svg';
 }
