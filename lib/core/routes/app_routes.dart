@@ -11,8 +11,11 @@ import '../../views/game_types.dart';
 import '../../views/settings.dart';
 import '../../views/math_levels.dart';
 import '../../views/chatbot.dart';
+
+
 import 'package:fbla_mobile_app/features/auth/view/new_sign_up.dart' as tSignUp; 
 import 'package:fbla_mobile_app/features/auth/view/new_sign_in.dart' as tSignIn;
+import 'package:fbla_mobile_app/features/home/view/home_screen.dart' as tHomeScreen;
 
 class AppRoutes {
   static const String signInScreen = '/sign-in';
@@ -31,6 +34,7 @@ class AppRoutes {
   // 🔽 New test routes
   static const String testSignInScreen = '/test-sign-in';
   static const String testSignUpScreen = '/test-sign-up';
+  static const String testHomeScreen = '/test-home-screen';
 
   static Map<String, WidgetBuilder> get routes {
     return {
@@ -50,6 +54,7 @@ class AppRoutes {
       // ✅ Test routes
       testSignInScreen: (context) => tSignIn.SignInScreen(),
       testSignUpScreen: (context) => tSignUp.SignUpScreen(),
+      testHomeScreen: (context) => tHomeScreen.HomeScreen(),
     };
   }
 }

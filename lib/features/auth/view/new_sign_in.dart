@@ -38,7 +38,7 @@ class _SignInScreenState extends State<SignInScreen> {
     handleAuthState(
       state: authViewModel.state,
       context: context,
-      onSuccess: () => Navigator.pushReplacementNamed(context, '/home'),
+      onSuccess: () => Navigator.pushReplacementNamed(context, AppRoutes.testHomeScreen),
       setGoogleLoading: (value) => setState(() => _isGoogleSigningIn = value),
       setAppleLoading: (value) => setState(() => _isAppleSigningIn = value),
     );

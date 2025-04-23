@@ -131,7 +131,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       if (_passwordController.text.length < 8) {
         throw Exception('Password must be at least 8 characters');
       }
-      
+
       if (_passwordController.text != _confirmPasswordController.text) {
         throw Exception('Passwords do not match');
       }
@@ -140,8 +140,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
         _emailController.text.trim(),
         _passwordController.text.trim(),
       );
-      
-      // If successful, the AuthViewModel will handle navigation
+
+      // ✅ Redirect to home screen on success
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+      }
     } catch (e) {
       _showErrorSnackbar(context, 'Sign up failed: ${e.toString()}');
     }
@@ -160,13 +163,17 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setLoadingState(true);
     try {
       await authFunction();
-      
-      // Check if this is a new user
+
       final authVM = context.read<AuthViewModel>();
       final user = authVM.currentUser;
+
       if (user != null && user.metadata.creationTime == user.metadata.lastSignInTime) {
-        // This is a new user via social sign-up
         _handleNewSocialUser(user, provider);
+      }
+
+      // ✅ Redirect to home screen on success
+      if (mounted) {
+        Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
       }
     } catch (e) {
       _showErrorSnackbar(context, '$provider sign up failed: ${e.toString()}');
@@ -178,16 +185,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   void _handleNewSocialUser(User user, String provider) {
-    // You can add specific onboarding for new social users here
-    // For example:
-    // - Collect additional profile information
-    // - Show welcome tutorial
-    // - Set initial preferences
-    
     debugPrint('New $provider user created: ${user.uid}');
-    
-    // The AuthViewModel's state changes will handle navigation
-    // but you could add specific new user logic here if needed
   }
 
   void _showErrorSnackbar(BuildContext context, String message) {
