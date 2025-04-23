@@ -13,11 +13,31 @@ class SignInLoading extends SignInState {
 }
 
 class SignInSuccess extends SignInState {
-  final bool needsVerification;
-  const SignInSuccess({this.needsVerification = false});
+  final bool isNewUser;
+  final User? user;
+  const SignInSuccess({
+    this.isNewUser = false,
+    this.user,
+  });
 }
+
+class SignInNeedsVerification extends SignInState {
+  final String email;
+  const SignInNeedsVerification(this.email);
+}
+
+enum AuthErrorType { network, invalidCredentials, emailExists, unknown }
 
 class SignInError extends SignInState {
   final String message;
-  const SignInError(this.message);
+  final AuthErrorType type;
+  const SignInError(
+    this.message, {
+    this.type = AuthErrorType.unknown,
+  });
+}
+
+class PasswordResetSent extends SignInState {
+  final String email;
+  const PasswordResetSent(this.email);
 }

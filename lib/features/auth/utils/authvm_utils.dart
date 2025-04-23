@@ -13,7 +13,7 @@ void handleAuthState({
 }) {
   if (state is SignInSuccess) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (state.needsVerification) {
+      if (state.isNewUser) {
         showVerificationDialog(context);
       } else {
         onSuccess();

@@ -3,10 +3,10 @@ import 'package:provider/provider.dart';
 import 'package:fbla_mobile_app/features/auth/widgets/auth_header.dart';
 import 'package:fbla_mobile_app/features/auth/widgets/auth_text_field.dart';
 import 'package:fbla_mobile_app/features/auth/widgets/gradient_button.dart';
-import 'package:fbla_mobile_app/features/auth/widgets/social_auth_button.dart';
 import 'package:fbla_mobile_app/features/auth/widgets/auth_toggle_text.dart';
 import 'package:fbla_mobile_app/features/auth/viewmodel/auth_viewmodel.dart';
 import 'package:fbla_mobile_app/features/auth/utils/authvm_utils.dart';
+import 'package:sign_in_button/sign_in_button.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -21,6 +21,7 @@ class _SignInScreenState extends State<SignInScreen> {
   final _passwordController = TextEditingController();
   bool _isGoogleSigningIn = false;
   bool _isAppleSigningIn = false;
+  bool _isSnackBarVisible = false;
 
   @override
   void dispose() {
@@ -77,26 +78,22 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(height: 20),
                 Column(
                   children: [
-                    SocialAuthButton(
-                      assetPath: 'assets/google_sign_in.svg',
-                      onPressed: () => _handleSocialAuth(
-                        context: context,
-                        provider: 'google',
-                        authFunction: () => context.read<AuthViewModel>().signInWithGoogle(),
-                        setLoadingState: (value) => setState(() => _isGoogleSigningIn = value),
-                      ),
-                      isLoading: _isGoogleSigningIn,
+                    _buildSocialButton(
+                      context,
+                      Buttons.google,
+                      _isGoogleSigningIn,
+                      'google',
+                      () => _handleGoogleSignIn(context),
+                      (value) => setState(() => _isGoogleSigningIn = value),
                     ),
                     const SizedBox(height: 8),
-                    SocialAuthButton(
-                      assetPath: 'assets/apple_sign_in.svg',
-                      onPressed: () => _handleSocialAuth(
-                        context: context,
-                        provider: 'apple',
-                        authFunction: () => context.read<AuthViewModel>().signInWithApple(),
-                        setLoadingState: (value) => setState(() => _isAppleSigningIn = value),
-                      ),
-                      isLoading: _isAppleSigningIn,
+                    _buildSocialButton(
+                      context,
+                      Buttons.apple,
+                      _isAppleSigningIn,
+                      'apple',
+                      () => _handleAppleSignIn(context),
+                      (value) => setState(() => _isAppleSigningIn = value),
                     ),
                   ],
                 ),
@@ -111,6 +108,31 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildSocialButton(
+    BuildContext context,
+    Buttons button,
+    bool isLoading,
+    String provider,
+    Future<void> Function() authFunction,
+    Function(bool) setLoadingState,
+  ) {
+    return SizedBox(
+      width: double.infinity,
+      child: isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : SignInButton(
+              button,
+              text: 'Sign in with ${provider[0].toUpperCase()}${provider.substring(1)}',
+              onPressed: () => _handleSocialAuth(
+                context: context,
+                provider: provider,
+                authFunction: authFunction,
+                setLoadingState: setLoadingState,
+              ),
+            ),
     );
   }
 
@@ -129,11 +151,51 @@ class _SignInScreenState extends State<SignInScreen> {
     required Future<void> Function() authFunction,
     required Function(bool) setLoadingState,
   }) async {
-    await handleSocialAuth(
+    if (_isSnackBarVisible) {
+      ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    }
+
+    setLoadingState(true);
+    try {
+      await authFunction();
+    } catch (e) {
+      if (mounted) {
+        _isSnackBarVisible = true;
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('$provider sign in failed: ${e.toString()}'),
+            backgroundColor: Colors.red,
+            duration: const Duration(seconds: 4),
+            behavior: SnackBarBehavior.floating,
+          ),
+        ).closed.then((_) {
+          if (mounted) {
+            setState(() => _isSnackBarVisible = false);
+          }
+        });
+      }
+    } finally {
+      if (mounted) {
+        setLoadingState(false);
+      }
+    }
+  }
+
+  Future<void> _handleGoogleSignIn(BuildContext context) async {
+    await _handleSocialAuth(
       context: context,
-      provider: provider,
-      authFunction: authFunction,
-      setLoadingState: setLoadingState,
+      provider: 'google',
+      authFunction: () => context.read<AuthViewModel>().signInWithGoogle(),
+      setLoadingState: (value) => setState(() => _isGoogleSigningIn = value),
+    );
+  }
+
+  Future<void> _handleAppleSignIn(BuildContext context) async {
+    await _handleSocialAuth(
+      context: context,
+      provider: 'apple',
+      authFunction: () => context.read<AuthViewModel>().signInWithApple(),
+      setLoadingState: (value) => setState(() => _isAppleSigningIn = value),
     );
   }
 }
