@@ -49,6 +49,14 @@ class HomeScreen extends StatelessWidget {
                 debugPrint('AI button working!');
               },
             ),
+            HomeButton(
+              left: MediaQuery.of(context).size.width / 2 - 24, // Assuming button width is 48
+              top: 150,
+              svgAssetPath: 'assets/game_portal.svg',
+              onTap: () {
+                debugPrint('Game Portal button working!');
+              },
+            ),
 
             SafeArea(
               child: Padding(
