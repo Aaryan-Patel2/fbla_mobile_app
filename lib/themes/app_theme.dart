@@ -1,3 +1,5 @@
+//General themes throughout the map; includes the black gradients and space blue/purple gradients
+
 import 'package:flutter/material.dart';
 
 class AppTheme {

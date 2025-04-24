@@ -30,6 +30,7 @@ dependencies:
   smart_logs: ^1.0.8
   screenshot: ^3.0.0
   shared_preferences: ^2.5.3
+  image_picker: ^1.1.2
 
 dev_dependencies:
   flutter_test:
