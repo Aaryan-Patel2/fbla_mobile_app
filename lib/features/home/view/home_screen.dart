@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodel/home_viewmodel.dart';
 import '../widgets/background_gradient.dart';
+import '../widgets/home_buttons.dart'; // <-- Import HomeButton widget
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -13,7 +14,42 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Stack(
           children: [
-            const BackgroundGradient(), // Updated to use SvgPicture
+            const BackgroundGradient(),
+
+            // HomeButtons placed at various coordinates
+            HomeButton(
+              left: 18,
+              top: 620,
+              svgAssetPath: 'assets/bugs_tab.svg',
+              onTap: () {
+                debugPrint('Bug Report button working!');
+              },
+            ),
+            HomeButton(
+              left: 222,
+              top: 321,
+              svgAssetPath: 'assets/settings_tab.svg',
+              onTap: () {
+                debugPrint('Settings button working!');
+              },
+            ),
+            HomeButton(
+              left: 222,
+              top: 620,
+              svgAssetPath: 'assets/pr_tab.svg',
+              onTap: () {
+                debugPrint('PR button working!');
+              },
+            ),
+            HomeButton(
+              left: 18,
+              top: 321,
+              svgAssetPath: 'assets/ai_tab.svg',
+              onTap: () {
+                debugPrint('AI button working!');
+              },
+            ),
+
             SafeArea(
               child: Padding(
                 padding: const EdgeInsets.all(20),
@@ -26,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 255, 255, 255), // Optional: depends on your background
+                          color: Color.fromARGB(255, 255, 255, 255),
                         ),
                       ),
                     );
