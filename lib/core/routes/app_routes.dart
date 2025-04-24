@@ -11,6 +11,10 @@ import '../../views/game_types.dart';
 import '../../views/settings.dart';
 import '../../views/math_levels.dart';
 import '../../views/chatbot.dart';
+import '../../views/geoguessr.dart';
+import '../../views/history_levels.dart';
+import '../../views/asteroid.dart';
+import '/../../views/science_levels.dart';
 
 
 import 'package:fbla_mobile_app/features/auth/view/new_sign_up.dart' as tSignUp; 
@@ -30,6 +34,10 @@ class AppRoutes {
   static const String gameSelectionScreen = '/game-selections';
   static const String settingsScreen = '/settings';
   static const String chatScreen = '/chat';
+  static const String geographyLevelsScreen = '/history-levels';
+  static const String geoguesserScreen = '/geoguesser';
+  static const String asteroidScreen = '/asteroid';
+  static const String scienceLevelsScreen = '/science-levels';
 
   // 🔽 New test routes
   static const String testSignInScreen = '/test-sign-in';
@@ -50,6 +58,10 @@ class AppRoutes {
       gameSelectionScreen: (context) => GameSelections(),
       settingsScreen: (context) => UserSettings(),
       chatScreen: (context) => ChatScreen(),
+      geographyLevelsScreen: (context) => GeographyLevelsScreen(),
+      geoguesserScreen: (context) => GeoGuesserScreen(),
+      asteroidScreen: (context) => AsteroidGameScreen(),
+      scienceLevelsScreen: (context) => ScienceLevelsScreen(),
 
       // ✅ Test routes
       testSignInScreen: (context) => tSignIn.SignInScreen(),

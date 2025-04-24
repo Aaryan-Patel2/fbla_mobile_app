@@ -3,8 +3,8 @@ import 'package:fbla_mobile_app/widgets/buttons.dart';
 import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 import 'globals.dart';
 
-class MathLevelsScreen extends StatelessWidget {
-  const MathLevelsScreen({super.key});
+class ScienceLevelsScreen extends StatelessWidget {
+  const ScienceLevelsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,23 +12,24 @@ class MathLevelsScreen extends StatelessWidget {
         ModalRoute.of(context)?.settings.arguments as String? ?? "practice";
 
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.deepPurple[900],
       body: Stack(
         children: [
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Choose a Math Level",
+                Text("Choose a Science Level",
                     style: TextStyle(
                         fontSize: 24,
                         color: Colors.white,
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 20),
-                _buildLevelButton(context, "Algebra", Colors.blue, 0, gameMode),
                 _buildLevelButton(
-                    context, "Trigonometry", Colors.purple, 1, gameMode),
-                _buildLevelButton(context, "Calculus", Colors.red, 2, gameMode),
+                    context, "Biology", Colors.green, 0, gameMode),
+                _buildLevelButton(
+                    context, "Chemistry", Colors.orange, 1, gameMode),
+                _buildLevelButton(context, "Physics", Colors.teal, 2, gameMode),
               ],
             ),
           ),
@@ -51,7 +52,7 @@ class MathLevelsScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
         onTap: () {
-          level = levelIndex; // Set global int value for level
+          scienceLevel = levelIndex; // Set global level index
 
           if (game == 1) {
             Navigator.pushNamed(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 import '../views/home_screen.dart';
+import 'globals.dart';
 
 void main() {
   runApp(MathChallengeApp());
@@ -18,7 +19,9 @@ class MathChallengeApp extends StatelessWidget {
       initialRoute: '/',
       routes: {
         '/': (context) => ChallengeHomeScreen(),
-        '/quiz': (context) => ChallengeScreen(),
+        '/quiz': (context) => ChallengeScreen(
+            topic: ModalRoute.of(context)?.settings.arguments as String? ??
+                'Algebra'),
         AppRoutes.homeScreen: (context) => HomeScreen(),
       },
     );
@@ -38,18 +41,24 @@ class ChallengeHomeScreen extends StatelessWidget {
             // Go to Challenge Button
             Center(
               child: ElevatedButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, '/quiz'),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/quiz',
+                      arguments:
+                          'Algebra'); // Adjust the argument based on the selected topic
+                },
                 child: Text("Go to Challenge"),
               ),
             ),
-
-            // Return to Home Button (Centered at the bottom of the screen)
+            // Return to Home Button (bottom center)
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: ReturnToHomeButton(
-                  onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+                  onPressed: () {
+                    Navigator.pushReplacementNamed(
+                        context, AppRoutes.homeScreen);
+                  },
                 ),
               ),
             ),
@@ -61,7 +70,9 @@ class ChallengeHomeScreen extends StatelessWidget {
 }
 
 class ChallengeScreen extends StatefulWidget {
-  const ChallengeScreen({super.key});
+  final String topic;
+
+  const ChallengeScreen({super.key, required this.topic});
 
   @override
   _ChallengeScreenState createState() => _ChallengeScreenState();
@@ -75,16 +86,38 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
   int _secondsRemaining = 60;
   Timer? _timer;
 
-  final List<Map<String, dynamic>> _questions = [
-    {"question": "What is the derivative of x²?", "answer": "2x"},
-    {"question": "What is the integral of 3x²?", "answer": "x³"},
-    {"question": "What is the derivative of sin(x)?", "answer": "cos(x)"},
-  ];
+  late final List<Map<String, dynamic>> _questions;
 
   @override
   void initState() {
     super.initState();
+    _questions = _getQuestionsForTopic();
     _startTimer();
+  }
+
+  List<Map<String, dynamic>> _getQuestionsForTopic() {
+    if (level == 1) {
+      // Trigonometry
+      return [
+        {"question": "What is sin(90°)?", "answer": "1"},
+        {"question": "What is cos(0°)?", "answer": "1"},
+        {"question": "What is tan(45°)?", "answer": "1"},
+      ];
+    } else if (level == 2) {
+      // Calculus
+      return [
+        {"question": "What is the derivative of x²?", "answer": "2x"},
+        {"question": "What is the integral of 3x²?", "answer": "x3"},
+        {"question": "What is the derivative of sin(x)?", "answer": "cos(x)"},
+      ];
+    } else {
+      // Default to Algebra
+      return [
+        {"question": "Solve for x: 2x + 3 = 7", "answer": "2"},
+        {"question": "Simplify: (x + 2)(x - 2)", "answer": "x2-4"},
+        {"question": "What is 3x if x = 4?", "answer": "12"},
+      ];
+    }
   }
 
   void _startTimer() {
@@ -132,7 +165,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
         actions: [
           TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, AppRoutes.homeScreen); // Redirect to home screen
+              Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
             },
             child: Text("Go Home"),
           ),
@@ -143,6 +176,8 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final currentQuestion = _questions[_questionIndex]["question"];
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: Stack(
@@ -165,11 +200,12 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    _questions[_questionIndex]["question"],
+                    currentQuestion,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
@@ -184,7 +220,8 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   child: TextField(
                     controller: _controller,
@@ -243,7 +280,9 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 10),
               child: ReturnToHomeButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+                onPressed: () {
+                  Navigator.pushReplacementNamed(context, AppRoutes.homeScreen);
+                },
               ),
             ),
           ),

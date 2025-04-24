@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:fbla_mobile_app/widgets/buttons.dart';  // Import the buttons.dart file
+import 'package:fbla_mobile_app/widgets/buttons.dart'; // Import the buttons.dart file
+import 'package:fbla_mobile_app/views/globals.dart';
 
 void main() {
   runApp(CalculusQuizApp());
 }
 
 class CalculusQuizApp extends StatelessWidget {
+  const CalculusQuizApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,7 +22,9 @@ class CalculusQuizApp extends StatelessWidget {
   }
 }
 
-class QuizHomeScreen extends StatelessWidget { // Updated class name
+class QuizHomeScreen extends StatelessWidget {
+  const QuizHomeScreen({super.key});
+  // Updated class name
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,6 +40,8 @@ class QuizHomeScreen extends StatelessWidget { // Updated class name
 }
 
 class QuizScreen extends StatefulWidget {
+  const QuizScreen({super.key});
+
   @override
   _QuizScreenState createState() => _QuizScreenState();
 }
@@ -44,15 +51,34 @@ class _QuizScreenState extends State<QuizScreen> {
   int _questionIndex = 0;
   String _feedback = "";
 
-  final List<Map<String, dynamic>> _questions = [
-    {"question": "What is the derivative of x²?", "answer": "2x"},
-    {"question": "What is the integral of 3x²?", "answer": "x³"},
-    {"question": "What is the derivative of sin(x)?", "answer": "cos(x)"},
-  ];
+  List<Map<String, dynamic>> _questions() {
+    if (level == 1) {
+      // Trigonometry
+      return [
+        {"question": "What is sin(90°)?", "answer": "1"},
+        {"question": "What is cos(0°)?", "answer": "1"},
+        {"question": "What is tan(45°)?", "answer": "1"},
+      ];
+    } else if (level == 2) {
+      // Calculus
+      return [
+        {"question": "What is the derivative of x²?", "answer": "2x"},
+        {"question": "What is the integral of 3x²?", "answer": "x³"},
+        {"question": "What is the derivative of sin(x)?", "answer": "cos(x)"},
+      ];
+    } else {
+      // Default to Algebra
+      return [
+        {"question": "Solve for x: 2x + 3 = 7", "answer": "2"},
+        {"question": "Simplify: (x + 2)(x - 2)", "answer": "x²-4"},
+        {"question": "What is 3x if x = 4?", "answer": "12"},
+      ];
+    }
+  }
 
   void _checkAnswer() {
     String userAnswer = _controller.text.trim();
-    if (userAnswer == _questions[_questionIndex]["answer"]) {
+    if (userAnswer == _questions()[_questionIndex]["answer"]) {
       setState(() {
         _feedback = "Correct! ✅";
       });
@@ -65,7 +91,7 @@ class _QuizScreenState extends State<QuizScreen> {
 
   void _nextQuestion() {
     setState(() {
-      _questionIndex = (_questionIndex + 1) % _questions.length;
+      _questionIndex = (_questionIndex + 1) % _questions().length;
       _feedback = "";
       _controller.clear();
     });
@@ -86,7 +112,11 @@ class _QuizScreenState extends State<QuizScreen> {
                 // Title
                 Row(
                   children: [
-                    Text("QUIZ ", style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.blueAccent)),
+                    Text("QUIZ ",
+                        style: TextStyle(
+                            fontSize: 32,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueAccent)),
                     Icon(Icons.sports_esports, color: Colors.blueAccent),
                   ],
                 ),
@@ -98,11 +128,12 @@ class _QuizScreenState extends State<QuizScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   alignment: Alignment.center,
                   child: Text(
-                    _questions[_questionIndex]["question"],
+                    _questions()[_questionIndex]["question"],
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
@@ -117,7 +148,8 @@ class _QuizScreenState extends State<QuizScreen> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    gradient: LinearGradient(colors: [Colors.blue, Colors.purple]),
+                    gradient:
+                        LinearGradient(colors: [Colors.blue, Colors.purple]),
                   ),
                   child: TextField(
                     controller: _controller,
@@ -143,7 +175,8 @@ class _QuizScreenState extends State<QuizScreen> {
                       borderRadius: BorderRadius.circular(15),
                       border: Border.all(color: Colors.blueAccent),
                     ),
-                    child: Text("Submit", style: TextStyle(color: Colors.white, fontSize: 18)),
+                    child: Text("Submit",
+                        style: TextStyle(color: Colors.white, fontSize: 18)),
                   ),
                 ),
 
@@ -174,7 +207,8 @@ class _QuizScreenState extends State<QuizScreen> {
             bottom: 20,
             left: 20,
             child: ReturnToHomeButton(
-              onPressed: () => Navigator.pushReplacementNamed(context, '/home'),  // Use the correct route
+              onPressed: () => Navigator.pushReplacementNamed(
+                  context, '/home'), // Use the correct route
             ),
           ),
         ],

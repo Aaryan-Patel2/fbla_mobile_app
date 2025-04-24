@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:fbla_mobile_app/widgets/buttons.dart'; // Import the custom button
-import 'package:fbla_mobile_app/core/routes/app_routes.dart'; // Import app routes
+import 'package:fbla_mobile_app/widgets/buttons.dart'; // Custom home button widget
+import 'package:fbla_mobile_app/core/routes/app_routes.dart'; // Route constants
+import 'globals.dart';
+
+// Make sure this global variable is declared somewhere globally
+// int gameMode = 0;
 
 class SubjectSelectionScreen extends StatelessWidget {
   const SubjectSelectionScreen({super.key});
@@ -18,23 +22,36 @@ class SubjectSelectionScreen extends StatelessWidget {
                 Text(
                   "Choose a Subject",
                   style: TextStyle(
-                      fontSize: 24,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+                    fontSize: 24,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
                 SizedBox(height: 20),
-                // Math button with working redirect
-                _buildSubjectButton(context, "Math",
-                    [Colors.blue, Colors.purple], AppRoutes.mathLevelsScreen),
-                // Placeholder buttons for Science and History
-                _buildSubjectButton(context, "Science",
-                    [Colors.green, Colors.teal], '/science_levels'),
-                _buildSubjectButton(context, "History",
-                    [Colors.brown, Colors.orange], '/history_levels'),
+                _buildSubjectButton(
+                  context,
+                  "Math",
+                  [Colors.blue, Colors.purple],
+                  AppRoutes.mathLevelsScreen,
+                  0,
+                ),
+                _buildSubjectButton(
+                  context,
+                  "Science",
+                  [Colors.green, Colors.teal],
+                  AppRoutes.scienceLevelsScreen,
+                  1,
+                ),
+                _buildSubjectButton(
+                  context,
+                  "History",
+                  [Colors.brown, Colors.orange],
+                  AppRoutes.geographyLevelsScreen,
+                  2,
+                ),
               ],
             ),
           ),
-
           // Home Button at Bottom Left
           Positioned(
             bottom: 20,
@@ -50,14 +67,18 @@ class SubjectSelectionScreen extends StatelessWidget {
   }
 
   Widget _buildSubjectButton(
-      BuildContext context, String subject, List<Color> colors, String route) {
+    BuildContext context,
+    String subject,
+    List<Color> colors,
+    String route,
+    int mode,
+  ) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
         onTap: () {
-          if (subject == "Math") {
-            Navigator.pushReplacementNamed(context, AppRoutes.mathLevelsScreen);
-          }
+          gameMode = mode;
+          Navigator.pushReplacementNamed(context, route);
         },
         child: Container(
           width: 250,
@@ -69,8 +90,11 @@ class SubjectSelectionScreen extends StatelessWidget {
           ),
           child: Text(
             subject,
-            style: TextStyle(
-                fontSize: 20, color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),

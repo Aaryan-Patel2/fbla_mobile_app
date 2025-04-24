@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 import 'package:fbla_mobile_app/core/routes/app_routes.dart';
-import '../core/constants/globals.dart';
+import 'globals.dart';
 
 class GameSelections extends StatefulWidget {
   const GameSelections({super.key});
@@ -29,7 +29,7 @@ class _GameSelectionsState extends State<GameSelections> {
                 fit: BoxFit.cover,
               ),
             ),
-            // Positioned areas for each game mode option
+            // Game = 1
             Positioned(
               top: screenHeight * 0.2,
               left: screenWidth * 0.05,
@@ -37,16 +37,14 @@ class _GameSelectionsState extends State<GameSelections> {
               height: screenHeight * 0.2,
               child: GestureDetector(
                 onTap: () {
-                  // First action: Set the global variable 'game' to 0
                   game = 1;
-
-                  // Second action: Navigate to the subjectSelectionScreen
                   Navigator.pushNamed(
                       context, AppRoutes.subjectSelectionScreen);
                 },
-                child: Container(color: Colors.transparent),
+                child: Container(color: Colors.black),
               ),
             ),
+            // Game = 0
             Positioned(
               top: screenHeight * 0.15,
               left: screenWidth * 0.55,
@@ -54,16 +52,14 @@ class _GameSelectionsState extends State<GameSelections> {
               height: screenHeight * 0.2,
               child: GestureDetector(
                 onTap: () {
-                  // First action: Set the global variable 'game' to 0
                   game = 0;
-
-                  // Second action: Navigate to the subjectSelectionScreen
                   Navigator.pushNamed(
                       context, AppRoutes.subjectSelectionScreen);
                 },
                 child: Container(color: Colors.transparent),
               ),
             ),
+            // Game = 2
             Positioned(
               top: screenHeight * 0.5,
               left: screenWidth * 0.05,
@@ -71,14 +67,40 @@ class _GameSelectionsState extends State<GameSelections> {
               height: screenHeight * 0.2,
               child: GestureDetector(
                 onTap: () {
-                  // First action: Set the global variable 'game' to 0
                   game = 2;
-
-                  // Second action: Navigate to the subjectSelectionScreen
                   Navigator.pushNamed(
                       context, AppRoutes.subjectSelectionScreen);
                 },
                 child: Container(color: Colors.transparent),
+              ),
+            ),
+            // Game = 3 (New Red Box)
+            Positioned(
+              top: screenHeight * 0.5,
+              left: screenWidth * 0.55,
+              width: screenWidth * 0.4,
+              height: screenHeight * 0.2,
+              child: GestureDetector(
+                onTap: () {
+                  game = 3;
+                  Navigator.pushNamed(context, AppRoutes.geographyLevelsScreen);
+                },
+                child: Container(color: Colors.red.withOpacity(0.5)),
+              ),
+            ),
+            // Game = 4 (New Red Box)
+            Positioned(
+              top: screenHeight * 0.75,
+              left: screenWidth * 0.3,
+              width: screenWidth * 0.4,
+              height: screenHeight * 0.15,
+              child: GestureDetector(
+                onTap: () {
+                  game = 4;
+                  Navigator.pushNamed(
+                      context, AppRoutes.subjectSelectionScreen);
+                },
+                child: Container(color: Colors.red.withOpacity(0.5)),
               ),
             ),
             // Return to Home Button

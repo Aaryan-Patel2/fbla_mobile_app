@@ -3,8 +3,8 @@ import 'package:fbla_mobile_app/widgets/buttons.dart';
 import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 import 'globals.dart';
 
-class MathLevelsScreen extends StatelessWidget {
-  const MathLevelsScreen({super.key});
+class GeographyLevelsScreen extends StatelessWidget {
+  const GeographyLevelsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +19,17 @@ class MathLevelsScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Choose a Math Level",
+                Text("Choose a Geography Level",
                     style: TextStyle(
                         fontSize: 24,
                         color: Colors.white,
                         fontWeight: FontWeight.bold)),
                 SizedBox(height: 20),
-                _buildLevelButton(context, "Algebra", Colors.blue, 0, gameMode),
+                _buildLevelButton(context, "World", Colors.green, 0, gameMode),
                 _buildLevelButton(
-                    context, "Trigonometry", Colors.purple, 1, gameMode),
-                _buildLevelButton(context, "Calculus", Colors.red, 2, gameMode),
+                    context, "American", Colors.orange, 1, gameMode),
+                _buildLevelButton(
+                    context, "European", Colors.teal, 2, gameMode),
               ],
             ),
           ),
@@ -51,7 +52,7 @@ class MathLevelsScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 10),
       child: GestureDetector(
         onTap: () {
-          level = levelIndex; // Set global int value for level
+          historyLevel = levelIndex; // ✅ Set global variable
 
           if (game == 1) {
             Navigator.pushNamed(
