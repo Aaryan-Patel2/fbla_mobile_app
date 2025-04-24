@@ -29,6 +29,7 @@ dependencies:
   flutter_svg: ^2.1.0
   smart_logs: ^1.0.8
   screenshot: ^3.0.0
+  shared_preferences: ^2.5.3
 
 dev_dependencies:
   flutter_test:
