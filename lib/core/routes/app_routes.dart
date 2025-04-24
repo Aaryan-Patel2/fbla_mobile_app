@@ -20,6 +20,8 @@ import '/../../views/science_levels.dart';
 import 'package:fbla_mobile_app/features/auth/view/new_sign_up.dart' as tSignUp; 
 import 'package:fbla_mobile_app/features/auth/view/new_sign_in.dart' as tSignIn;
 import 'package:fbla_mobile_app/features/home/view/home_screen.dart' as tHomeScreen;
+import 'package:fbla_mobile_app/features/bug_report/view/bug_report_screen.dart' as tBugReportScreen;
+import 'package:fbla_mobile_app/features/settings/view/settings_screen.dart' as tSettingsScreen;
 
 class AppRoutes {
   static const String signInScreen = '/sign-in';
@@ -43,6 +45,8 @@ class AppRoutes {
   static const String testSignInScreen = '/test-sign-in';
   static const String testSignUpScreen = '/test-sign-up';
   static const String testHomeScreen = '/test-home-screen';
+  static const String testBugReportsScreen = '/test-bug-report-screen';
+  static const String testSettingsScreen = '/test-settings-screen';
 
   static Map<String, WidgetBuilder> get routes {
     return {
@@ -67,6 +71,8 @@ class AppRoutes {
       testSignInScreen: (context) => tSignIn.SignInScreen(),
       testSignUpScreen: (context) => tSignUp.SignUpScreen(),
       testHomeScreen: (context) => tHomeScreen.HomeScreen(),
+      testBugReportsScreen: (context) => tBugReportScreen.BugReportScreen(),
+      testSettingsScreen: (context) => tSettingsScreen.SettingsScreen(),
     };
   }
 }

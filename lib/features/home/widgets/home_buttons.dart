@@ -14,7 +14,7 @@ class HomeButton extends StatelessWidget {
     required this.top,
     required this.svgAssetPath,
     this.onTap,
-    this.size = 60.0,
+    this.size = 150.0,
   });
 
   @override
@@ -26,8 +26,8 @@ class HomeButton extends StatelessWidget {
         onTap: onTap,
         child: SvgPicture.asset(
           svgAssetPath,
-          width: size,
-          height: size,
+          width: size == 0 ? null : size,
+          height: size == 0 ? null : size,
         ),
       ),
     );

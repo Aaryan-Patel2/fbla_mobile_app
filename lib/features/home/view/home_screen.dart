@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import '../viewmodel/home_viewmodel.dart';
 import '../widgets/background_gradient.dart';
 import '../widgets/home_buttons.dart'; // <-- Import HomeButton widget
+import '../../../core/routes/app_routes.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
               top: 620,
               svgAssetPath: 'assets/bugs_tab.svg',
               onTap: () {
-                debugPrint('Bug Report button working!');
+                Navigator.pushNamed(context, AppRoutes.testBugReportsScreen);
               },
             ),
             HomeButton(
@@ -30,7 +31,7 @@ class HomeScreen extends StatelessWidget {
               top: 321,
               svgAssetPath: 'assets/settings_tab.svg',
               onTap: () {
-                debugPrint('Settings button working!');
+                Navigator.pushNamed(context, AppRoutes.testSettingsScreen);
               },
             ),
             HomeButton(
@@ -38,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               top: 620,
               svgAssetPath: 'assets/pr_tab.svg',
               onTap: () {
-                debugPrint('PR button working!');
+                Navigator.pushNamed(context, AppRoutes.prScreen);
               },
             ),
             HomeButton(
@@ -46,7 +47,7 @@ class HomeScreen extends StatelessWidget {
               top: 321,
               svgAssetPath: 'assets/ai_tab.svg',
               onTap: () {
-                debugPrint('AI button working!');
+                Navigator.pushNamed(context, AppRoutes.chatScreen);
               },
             ),
             HomeButton(
@@ -54,7 +55,7 @@ class HomeScreen extends StatelessWidget {
               top: 150,
               svgAssetPath: 'assets/game_portal.svg',
               onTap: () {
-                debugPrint('Game Portal button working!');
+                Navigator.pushNamed(context, AppRoutes.subjectSelectionScreen);
               },
             ),
 
