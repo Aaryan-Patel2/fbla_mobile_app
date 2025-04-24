@@ -14,7 +14,7 @@ class HomeButton extends StatelessWidget {
     required this.top,
     required this.svgAssetPath,
     this.onTap,
-    this.scale = 1.5,
+    this.scale = 0.85,
   });
 
   @override

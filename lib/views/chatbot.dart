@@ -118,7 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Center(
               child: ReturnToHomeButton(
                 onPressed: () =>
-                    Navigator.pushNamed(context, AppRoutes.testSettingsScreen),
+                    Navigator.pushNamed(context, AppRoutes.testHomeScreen),
               ),
             ),
           ),

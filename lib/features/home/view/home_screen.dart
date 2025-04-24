@@ -27,16 +27,16 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             HomeButton(
-              left: 250,
-              top: 321,
+              left: 225,
+              top: 305,
               svgAssetPath: 'assets/settings_tab.svg',
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.testSettingsScreen);
               },
             ),
             HomeButton(
-              left: 250,
-              top: 550,
+              left: 225,
+              top: 525,
               svgAssetPath: 'assets/pr_tab.svg',
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.prScreen);
@@ -51,8 +51,8 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             HomeButton(
-              left: 192,
-              top: 150,
+              left: 70,
+              top: 60,
               svgAssetPath: 'assets/game_portal.svg',
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.subjectSelectionScreen);

@@ -58,7 +58,7 @@ class SubjectSelectionScreen extends StatelessWidget {
             left: 20,
             child: ReturnToHomeButton(
               onPressed: () =>
-                  Navigator.pushReplacementNamed(context, AppRoutes.homeScreen),
+                  Navigator.pushReplacementNamed(context, AppRoutes.testHomeScreen),
             ),
           ),
         ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart'; // Import the buttons.dart file
 import 'package:fbla_mobile_app/views/globals.dart';
+import 'package:fbla_mobile_app/core/routes/app_routes.dart'; // Import the app routes
 
 void main() {
   runApp(CalculusQuizApp());
@@ -207,8 +208,8 @@ class _QuizScreenState extends State<QuizScreen> {
             bottom: 20,
             left: 20,
             child: ReturnToHomeButton(
-              onPressed: () => Navigator.pushReplacementNamed(
-                  context, '/home'), // Use the correct route
+              onPressed: () => 
+              Navigator.pushReplacementNamed(context, AppRoutes.testHomeScreen), // Use the correct route
             ),
           ),
         ],
