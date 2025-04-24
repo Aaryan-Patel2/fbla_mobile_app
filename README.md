@@ -31,13 +31,8 @@ Through a user-friendly GUI and a clean look, *Orbit* encourages students to act
 
 # Copyright
 ## Assets
-* Officer Icon made by [Freepik](https://www.freepik.com/) from www.flaticon.com
-* About FBLA Icon made by [Freepik](https://www.freepik.com/) from www.flaticon.com
-* History Icon made by [Hadrien](https://hadrien.co/) from www.flaticon.com
-* Business Icon made by [Pixel Perfect](https://icon54.com/) from www.flaticon.com
-* Events Icon made by [Smashicons](https://smashicons.com/) from www.flaticon.com
-* Share Icon made by [Chanut](https://www.flaticon.com/authors/chanut) from www.flaticon.com
-* Bug Icon made by [Dave Gandy](https://fontawesome.com/?from=io) from www.flaticon.com
+* [Feather Icons](https://www.figma.com/community/file/831889015869671429/feather-icons-unicons-library) from https://github.com/feathericons/feather
+* [Unicons](https://www.figma.com/community/file/831889015869671429/feather-icons-unicons-library) from https://github.com/Iconscout/unicons
 
 ## APIs
 * [Firebase](https://firebase.google.com/)
@@ -46,7 +41,6 @@ Through a user-friendly GUI and a clean look, *Orbit* encourages students to act
 ### [Flutter SDK](https://flutter.dev/)
 The Flutter SDK (built on top of the Dart programming language) was utilize in the forefront of our app to configure compatability with iOS and Android, as well as integrating aspects such as the leaderboard through the [screenshot](https://pub.dev/packages/screenshot) library.
 
-# Developer's Note
 ## Created With
 * Flutter
 * Dart
