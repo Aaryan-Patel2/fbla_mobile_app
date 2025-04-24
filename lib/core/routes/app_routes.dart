@@ -22,6 +22,7 @@ import 'package:fbla_mobile_app/features/auth/view/new_sign_in.dart' as tSignIn;
 import 'package:fbla_mobile_app/features/home/view/home_screen.dart' as tHomeScreen;
 import 'package:fbla_mobile_app/features/bug_report/view/bug_report_screen.dart' as tBugReportScreen;
 import 'package:fbla_mobile_app/features/settings/view/settings_screen.dart' as tSettingsScreen;
+import 'package:fbla_mobile_app/features/personal_records/view/personal_records_screen.dart' as tPersonalRecordScreen;
 
 class AppRoutes {
   static const String signInScreen = '/sign-in';
@@ -40,6 +41,7 @@ class AppRoutes {
   static const String geoguesserScreen = '/geoguesser';
   static const String asteroidScreen = '/asteroid';
   static const String scienceLevelsScreen = '/science-levels';
+  static const String personalRecordScreen = '/personal-records-screen';
 
   // 🔽 New test routes
   static const String testSignInScreen = '/test-sign-in';
@@ -73,6 +75,7 @@ class AppRoutes {
       testHomeScreen: (context) => tHomeScreen.HomeScreen(),
       testBugReportsScreen: (context) => tBugReportScreen.BugReportScreen(),
       testSettingsScreen: (context) => tSettingsScreen.SettingsScreen(),
+      personalRecordScreen: (context) => tPersonalRecordScreen.PersonalRecordsScreen(),
     };
   }
 }

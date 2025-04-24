@@ -39,7 +39,7 @@ class HomeScreen extends StatelessWidget {
               top: 530,
               svgAssetPath: 'assets/pr_tab.svg',
               onTap: () {
-                Navigator.pushNamed(context, AppRoutes.prScreen);
+                Navigator.pushNamed(context, AppRoutes.personalRecordScreen);
               },
             ),
             HomeButton(
