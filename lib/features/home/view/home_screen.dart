@@ -20,14 +20,14 @@ class HomeScreen extends StatelessWidget {
             // HomeButtons placed at various coordinates
             HomeButton(
               left: 18,
-              top: 620,
+              top: 550,
               svgAssetPath: 'assets/bugs_tab.svg',
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.testBugReportsScreen);
               },
             ),
             HomeButton(
-              left: 222,
+              left: 250,
               top: 321,
               svgAssetPath: 'assets/settings_tab.svg',
               onTap: () {
@@ -35,8 +35,8 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             HomeButton(
-              left: 222,
-              top: 620,
+              left: 250,
+              top: 550,
               svgAssetPath: 'assets/pr_tab.svg',
               onTap: () {
                 Navigator.pushNamed(context, AppRoutes.prScreen);
@@ -51,7 +51,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
             HomeButton(
-              left: MediaQuery.of(context).size.width / 2 - 24, // Assuming button width is 48
+              left: 192,
               top: 150,
               svgAssetPath: 'assets/game_portal.svg',
               onTap: () {

@@ -6,7 +6,7 @@ class HomeButton extends StatelessWidget {
   final double top;
   final String svgAssetPath;
   final VoidCallback? onTap;
-  final double size;
+  final double scale; // instead of size
 
   const HomeButton({
     super.key,
@@ -14,7 +14,7 @@ class HomeButton extends StatelessWidget {
     required this.top,
     required this.svgAssetPath,
     this.onTap,
-    this.size = 150.0,
+    this.scale = 1.5,
   });
 
   @override
@@ -24,10 +24,9 @@ class HomeButton extends StatelessWidget {
       top: top,
       child: GestureDetector(
         onTap: onTap,
-        child: SvgPicture.asset(
-          svgAssetPath,
-          width: size == 0 ? null : size,
-          height: size == 0 ? null : size,
+        child: Transform.scale(
+          scale: scale,
+          child: SvgPicture.asset(svgAssetPath),
         ),
       ),
     );
