@@ -1,3 +1,19 @@
+// 👇 Force Kotlin plugin version here
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.9.20")
+    }
+}
+
+// Optional: can still declare plugin metadata, just don't apply it here
+plugins {
+    kotlin("android") version "1.9.20" apply false
+}
+
 allprojects {
     repositories {
         google()
