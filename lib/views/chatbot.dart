@@ -3,6 +3,8 @@ import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
 
 class ChatScreen extends StatefulWidget {
+  const ChatScreen({super.key});
+
   @override
   _ChatScreenState createState() => _ChatScreenState();
 }
@@ -17,13 +19,19 @@ class _ChatScreenState extends State<ChatScreen> {
       messages.add({"sender": "user", "text": message});
     });
 
-    // Hardcoded response for "What is the meaning of life?"
     if (message.trim().toLowerCase() == "what is the meaning of life?") {
-      String aiResponse =
-          "That’s one of the big questions! Some say it’s about finding happiness, others believe it’s about personal growth, relationships, or leaving a legacy. From a scientific perspective, life is about survival and reproduction. Philosophically, it depends on your beliefs—existentialists say we create our own meaning, while some religions see it as fulfilling a divine purpose.";
-
       setState(() {
-        messages.add({"sender": "ai", "text": aiResponse});
+        messages.add({"sender": "ai", "text": "..."});
+      });
+
+      Future.delayed(Duration(seconds: 2), () {
+        String aiResponse =
+            "That’s one of the big questions! Some say it’s about finding happiness, others believe it’s about personal growth, relationships, or leaving a legacy. From a scientific perspective, life is about survival and reproduction. Philosophically, it depends on your beliefs—existentialists say we create our own meaning, while some religions see it as fulfilling a divine purpose.";
+
+        setState(() {
+          messages.removeLast(); // Remove the "..." message
+          messages.add({"sender": "ai", "text": aiResponse});
+        });
       });
     }
   }
@@ -102,12 +110,14 @@ class _ChatScreenState extends State<ChatScreen> {
 
           // 🔹 Home Button Positioned at the Bottom Left
           Positioned(
-            bottom: 10, // Adjust this for fine-tuning (5-10 pixels above the bottom)
+            bottom:
+                10, // Adjust this for fine-tuning (5-10 pixels above the bottom)
             left: 0,
             right: 0,
             child: Center(
               child: ReturnToHomeButton(
-                onPressed: () => Navigator.pushReplacementNamed(context, '/home'),
+                onPressed: () =>
+                    Navigator.pushReplacementNamed(context, '/home'),
               ),
             ),
           ),

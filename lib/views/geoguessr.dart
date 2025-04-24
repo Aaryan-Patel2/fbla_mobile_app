@@ -62,11 +62,30 @@ class _GeoGuesserScreenState extends State<GeoGuesserScreen> {
   }
 
   void _checkAnswer() {
-    final userAnswer = _controller.text.trim().toLowerCase();
+    final userAnswer = _controller.text.trim();
+
+    // Check for numbers
+    if (RegExp(r'\d').hasMatch(userAnswer)) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Invalid Input"),
+          content: Text("Please enter a place name without numbers."),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text("OK"),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+
     final correctAnswer = imageData[currentIndex]["answer"]!.toLowerCase();
 
     setState(() {
-      if (userAnswer == correctAnswer) {
+      if (userAnswer.toLowerCase() == correctAnswer) {
         feedback = "✅ Correct!";
         if (currentIndex < imageData.length - 1) {
           currentIndex++;

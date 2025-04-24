@@ -7,6 +7,8 @@ import 'package:fbla_mobile_app/widgets/buttons.dart';
 void main() => runApp(AsteroidGameApp());
 
 class AsteroidGameApp extends StatelessWidget {
+  const AsteroidGameApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,6 +19,8 @@ class AsteroidGameApp extends StatelessWidget {
 }
 
 class AsteroidGameScreen extends StatefulWidget {
+  const AsteroidGameScreen({super.key});
+
   @override
   _AsteroidGameScreenState createState() => _AsteroidGameScreenState();
 }
@@ -31,6 +35,7 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
   Timer? _asteroidTimer;
   bool asteroidVisible = true;
   bool _isShooting = false;
+  int currentScore = 0;
 
   @override
   void initState() {
@@ -58,6 +63,8 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
       });
 
       if (asteroidY > 1) {
+        _updateTopAttempts(currentScore);
+        currentScore = 0;
         _generateNewQuestion();
       }
     });
@@ -77,12 +84,12 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
     String answer = _answerController.text.trim();
 
     setState(() {
-      _isShooting = true; // Show the laser
+      _isShooting = true;
     });
 
     Future.delayed(Duration(milliseconds: 200), () {
       setState(() {
-        _isShooting = false; // Hide the laser
+        _isShooting = false;
       });
     });
 
@@ -93,12 +100,21 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
       setState(() {
         asteroidVisible = false;
         _answerController.clear();
+        currentScore++;
       });
       Future.delayed(Duration(seconds: 1), () {
         setState(() {
           _generateNewQuestion();
         });
       });
+    }
+  }
+
+  void _updateTopAttempts(int score) {
+    topAttempts.add(score);
+    topAttempts.sort((a, b) => b.compareTo(a));
+    if (topAttempts.length > 3) {
+      topAttempts = topAttempts.sublist(0, 3);
     }
   }
 
@@ -111,21 +127,18 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
 
   List<Map<String, dynamic>> _questions() {
     if (level == 1) {
-      // Trigonometry
       return [
         {"question": "What is sin(90°)?", "answer": "1"},
         {"question": "What is cos(0°)?", "answer": "1"},
         {"question": "What is tan(45°)?", "answer": "1"},
       ];
     } else if (level == 2) {
-      // Calculus
       return [
         {"question": "What is the derivative of x²?", "answer": "2x"},
         {"question": "What is the integral of 3x²?", "answer": "x3"},
         {"question": "What is the derivative of sin(x)?", "answer": "cos(x)"},
       ];
     } else {
-      // Default to Algebra
       return [
         {"question": "Solve for x: 2x + 3 = 7", "answer": "2"},
         {"question": "Simplify: (x + 2)(x - 2)", "answer": "x2-4"},
@@ -162,6 +175,23 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
               ),
             ),
 
+            // Top attempts display
+            Positioned(
+              top: 60,
+              left: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Top Scores:",
+                      style: TextStyle(
+                          color: Colors.white, fontWeight: FontWeight.bold)),
+                  for (var i = 0; i < topAttempts.length; i++)
+                    Text("Attempt ${i + 1}: ${topAttempts[i]}",
+                        style: TextStyle(color: Colors.white)),
+                ],
+              ),
+            ),
+
             // Asteroid
             if (asteroidVisible)
               Positioned(
@@ -174,7 +204,7 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
                 ),
               ),
 
-            // Laser beam (higher start)
+            // Laser beam
             if (_isShooting)
               Positioned(
                 bottom: 190,
@@ -186,7 +216,7 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
                 ),
               ),
 
-            // Player Cannon (PNG)
+            // Player Cannon
             Align(
               alignment: Alignment(0, 1),
               child: Padding(
@@ -207,8 +237,10 @@ class _AsteroidGameScreenState extends State<AsteroidGameScreen> {
               bottom: 20,
               left: 20,
               child: ReturnToHomeButton(
-                onPressed: () =>
-                    Navigator.pushReplacementNamed(context, '/home'),
+                onPressed: () {
+                  _updateTopAttempts(currentScore);
+                  Navigator.pushReplacementNamed(context, '/home');
+                },
               ),
             ),
 

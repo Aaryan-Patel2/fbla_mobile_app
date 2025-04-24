@@ -5,3 +5,4 @@ int gameMode = 0;
 int level = 0;
 int historyLevel = 0;
 int scienceLevel = 0;
+List<int> topAttempts = [];
