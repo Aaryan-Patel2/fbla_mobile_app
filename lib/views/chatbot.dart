@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:chat_bubbles/chat_bubbles.dart';
 import 'package:fbla_mobile_app/widgets/buttons.dart';
+import 'package:fbla_mobile_app/core/routes/app_routes.dart';
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({super.key});
@@ -117,7 +118,7 @@ class _ChatScreenState extends State<ChatScreen> {
             child: Center(
               child: ReturnToHomeButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, '/home'),
+                    Navigator.pushNamed(context, AppRoutes.testSettingsScreen),
               ),
             ),
           ),

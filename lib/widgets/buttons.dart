@@ -80,7 +80,7 @@ class ReturnToHomeButton extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Image.asset(
-          'lib/assets/home_button.png',
+          'assets/home_button.png',
           width: 50,  // Adjust size if needed
           height: 50, // Adjust size if needed
         ),
